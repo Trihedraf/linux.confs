@@ -67,6 +67,7 @@ function mkcd () {
 
 function rmed() {
 	local dir="$1"
+	find "$dir" -type d -empty
 	find "$dir" -type d -empty -delete
 }
 
