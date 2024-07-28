@@ -65,6 +65,11 @@ function mkcd () {
 	$mysudo mkdir -p $arg1; cd $arg1
 }
 
+function rmed() {
+	local dir="$1"
+	find "$dir" -type d -empty -delete
+}
+
 clear
 fastfetch
 
