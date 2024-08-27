@@ -51,7 +51,7 @@ alias dcu='sudo docker compose up -d'
 alias dlt='sudo docker logs -tf'
 alias dush='du -sh'
 alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
-alias romzip='find ./ -type f -exec zip -9 "{}.zip" "{}" \;'
+alias romzip='find ./ -type f -exec sh -c 'zip -9 "${1%.*}.zip" "${1}"' -- '{}' \;'
 
 #Functions
 
