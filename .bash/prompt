@@ -46,7 +46,7 @@ bash_prompt_command() {
  [ $UID -eq "0" ] && UC=$regRed && CC=$regRed && DC=$regRed # root color
 
 
- PS1="$TITLEBAR${AC}|${TC}\D{%F %T}${AC}|${UC}\u${AC}@${MC}\h${AC}:[${DC}\w${AC}]${EC} \${?#0}\n${CC}>"
+ PS1="$TITLEBAR${AC}|${TC}\D{%F %T}${AC}|${UC}\u${AC}@${MC}\h${AC}:[${DC}\w${AC}]${EC} \${?#0}\n${CC}>\[\e]1337;CurrentDir="'$(pwd)\a\]'
 
  # for terminal line coloring, leaving the rest standard
  none="$(tput sgr0)"
