@@ -16,7 +16,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="~/bin:$PATH"
+export PATH="~/.local/bin:$PATH"
 
 if [ -f ~/.bash/aliases ]; then
     . ~/.bash/aliases
