@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=System;TerminalEmulator;
+Exec=tabby-linux-x64.AppImage
+GenericName=Terminal
+Icon=utilities-terminal
+Name=Tabby
+NoDisplay=false
+StartupNotify=true
+Terminal=false
+Type=Application
+Keywords=terminal;console;script;run;execute;command;command-line;commandline;cli;bash;sh;shell;zsh;cmd;command prompt
