@@ -1,0 +1,24 @@
+[Desktop Entry]
+DefaultProfile=tri.profile
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+RememberWindowSize=false
+
+[MainWindow]
+MenuBar=Enabled
+ToolBarsMovable=Disabled
+
+[TabBar]
+CloseTabOnMiddleMouseButton=true
+ExpandTabWidth=true
+NewTabButton=true
+TabBarVisibility=AlwaysShowTabBar
+
+[ThumbnailsSettings]
+ThumbnailCtrl=true
+
+[UiSettings]
+ColorScheme=

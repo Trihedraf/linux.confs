@@ -164,6 +164,27 @@ native_package_menu()
 #    done
 #}
 
+#tabby_appimage_install()
+#{
+#    mkdir -p ~/.local/bin
+#    wget -qO - https://github.com/Eugeny/tabby/releases/latest/download/latest-x64-linux.yml | \
+#    grep -oE 'tabby.*AppImage' | \
+#    while read -r filename; do
+#        if [ ! -f "$HOME/.local/bin/$filename" ]; then
+#            printf "Latest Tabby AppImage not found. Remove any existing Tabby AppImages and Downloading Latest...\n"
+#            find "$HOME/.local/bin/" -type f,l -name "tabby*.AppImage" -delete
+#            wget -q --show-progress --progress=bar:force:noscroll -O "$HOME/.local/bin/$filename" "https://github.com/Eugeny/tabby/releases/latest/download/$filename"
+#            chmod +x "$HOME/.local/bin/$filename"
+#            ln -s "$HOME/.local/bin/$filename" "$HOME/.local/bin/tabby.AppImage"
+#            printf "Latest Tabby AppImage has been installed.\n"
+#            break
+#        else
+#            printf "Latest Tabby AppImage already exists. Skipping...\n"
+#            break
+#        fi
+#    done
+#}
+
 font_menu()
 {
     while true; do
@@ -213,8 +234,8 @@ config_menu()
         # Display the menu
         clear
         printf "\n  Please select an option:\n\n"
-        printf "    1. Install Alacritty config\n"
-        printf "    2. Install fastfetch config\n"
+        printf "    1. Install fastfetch config\n"
+        printf "    2. Install Konsole config\n"
         printf "    3. Install MangoHud config\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-3): "
@@ -223,22 +244,22 @@ config_menu()
         
         case "$config_choice" in
             1)
-                mkdir -p ~/.config/alacritty
-                [ ! -f ~/.config/alacritty/alacritty.toml ] || mv -v ~/.config/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml.bak
-                cp -v .config/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
-                [ ! -f ~/.config/alacritty/keybinds.toml ] || mv -v ~/.config/alacritty/keybinds.toml ~/.config/alacritty/keybinds.toml.bak
-                cp -v .config/alacritty/keybinds.toml ~/.config/alacritty/keybinds.toml
-                [ ! -f ~/.config/alacritty/tritheme.toml ] || mv -v ~/.config/alacritty/tritheme.toml ~/.config/alacritty/tritheme.toml.bak
-                cp -v .config/alacritty/tritheme.toml ~/.config/alacritty/tritheme.toml
-                printf "Alacritty config files have been installed.\n"
-                printf "\n  Press enter to continue..."
-                read -r choice
-            ;;
-            2)
                 mkdir -p ~/.config/fastfetch
                 [ ! -f ~/.config/fastfetch/config.jsonc ] || mv -v ~/.config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc.bak
                 cp -v .config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
                 printf "fastfetch config has been installed.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
+            ;;
+            2)
+                mkdir -p ~/.local/share/konsole
+                [ ! -f ~/.local/share/konsole/tri.profile ] || mv -v ~/.local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile.bak
+                cp -v .local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile
+                printf "Konsole profile has been installed.\n"
+                mkdir -p ~/.config
+                [ ! -f ~/.config/konsolerc ] || mv -v ~/.config/konsolerc ~/.config/konsolerc.bak
+                cp -v .config/konsolerc ~/.config/konsolerc
+                printf "Konsole config has been installed.\n"
                 printf "\n  Press enter to continue..."
                 read -r choice
             ;;
@@ -262,12 +283,12 @@ while true; do
     clear
     printf "\n  Please select an option:\n\n"
     printf "    1. Bash files menu\n"
-    printf "    2. Native Package menu\n"
-    #    printf "    3. AppImage menu\n"
-    printf "    3. Font menu\n"
-    printf "    4. Config menu\n"
+    #printf "    2. Native Package menu\n"
+    #printf "    2. AppImage menu\n"
+    printf "    2. Font menu\n"
+    printf "    3. Config menu\n"
     printf "    0. Exit\n"
-    printf "\n  Enter your choice (0-4): "
+    printf "\n  Enter your choice (0-3): "
     read -r choice
     printf "\n\n"
     
@@ -275,16 +296,16 @@ while true; do
         1)
             bash_menu
         ;;
+        #2)
+        #    native_package_menu
+        #;;
+        #2)
+        #    appimage_menu
+        #;;
         2)
-            native_package_menu
-        ;;
-        #        3)
-        #            appimage_menu
-        #        ;;
-        3)
             font_menu
         ;;
-        4)
+        3)
             config_menu
         ;;
         0)
