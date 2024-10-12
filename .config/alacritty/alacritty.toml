@@ -1,0 +1,54 @@
+live_config_reload = true
+working_directory = "None"
+
+# Themes --
+import = [
+  "~/.config/alacritty/tritheme.toml",
+  "~/.config/alacritty/keybinds.toml"
+]
+
+[window]
+decorations = "full"
+blur = true
+opacity = 0.95
+padding.x = 8
+padding.y = 8
+resize_increments = true
+
+[window.dimensions]
+columns = 160
+lines = 48
+
+[scrolling]
+history = 100000
+
+[font]
+normal.family = "CommitMonoNerdFontMono"
+normal.style = "Regular"
+size = 12.0
+
+[font.bold]
+family = "CommitMonoNerdFontMono"
+style = "Bold"
+
+[font.italic]
+family = "CommitMonoNerdFontMono"
+style = "Italic"
+
+[bell]
+animation = "Linear"
+duration = 64
+color = "#060606"
+
+[cursor]
+blink_interval = 500
+blink_timeout = 0
+unfocused_hollow = false
+thickness = 0.25
+
+[cursor.style]
+shape= "Underline"
+blinking = "On"
+
+[env]
+TERM = "xterm-256color"

@@ -75,7 +75,6 @@ appimage_menu()
         # Display the menu
         clear
         printf "\n  Please select an option:\n\n"
-        printf "    1. Tabby\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-1): "
         read -r appimage_choice
@@ -83,7 +82,6 @@ appimage_menu()
         
         case "$appimage_choice" in
             1)
-                tabby_menu
             ;;
             0)
                 break
@@ -92,72 +90,73 @@ appimage_menu()
     done
 }
 
-tabby_menu()
 {
     while true; do
         # Display the menu
         clear
         printf "\n  Please select an option:\n\n"
-        printf "    1. Install Tabby AppImage, config and .desktop file\n"
-        printf "    2. Download Latest Tabby AppImage\n"
-        printf "    3. Update Tabby Config\n"
-        printf "    4. Remove Tabby AppImage, config and .desktop file\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-4): "
-        read -r tabby_choice
         printf "\n\n"
         
-        case "$tabby_choice" in
             1)
-                mkdir -p ~/.local/bin
-                wget -qO - https://github.com/Eugeny/tabby/releases/latest/download/latest-x64-linux.yml | \
-                grep -oE 'tabby.*AppImage' | \
-                while read -r filename; do
-                    if [ ! -f "$HOME/.local/bin/tabby-linux-x64.AppImage" ]; then
-                        wget -q --show-progress --progress=bar:force:noscroll -O "$HOME/.local/bin/tabby-linux-x64.AppImage" "https://github.com/Eugeny/tabby/releases/latest/download/$filename"
-                        chmod +x ~/.local/bin/tabby-linux-x64.AppImage
-                    fi
-                done
-                mkdir -p ~/.config/tabby
-                [ ! -f ~/.config/tabby/config.yaml ] || mv -v ~/.config/tabby/config.yaml ~/.config/tabby/config.yaml.bak
-                cp -v .config/tabby/config.yaml ~/.config/tabby/config.yaml
-                mkdir -p ~/.local/share/applications
-                [ ! -f ~/.local/share/applications/tabby.desktop ] || mv -v ~/.local/share/applications/tabby.desktop ~/.local/share/applications/tabby.desktop.bak
-                cp -v .local/share/applications/tabby.desktop ~/.local/share/applications/tabby.desktop
-                printf "Tabby AppImage, config and .desktop file have been installed.\n"
                 printf "\n  Press enter to continue..."
-                read -r tabby_choice
             ;;
             2)
-                mkdir -p ~/.local/bin
-                rm ~/.local/bin/tabby-linux-x64.AppImage
-                wget -qO - https://github.com/Eugeny/tabby/releases/latest/download/latest-x64-linux.yml | \
-                grep -oE 'tabby.*AppImage' | \
-                while read -r filename; do
-                    if [ ! -f "$HOME/.local/bin/tabby-linux-x64.AppImage" ]; then
-                        wget -q --show-progress --progress=bar:force:noscroll -O "$HOME/.local/bin/tabby-linux-x64.AppImage" "https://github.com/Eugeny/tabby/releases/latest/download/$filename"
-                        chmod +x ~/.local/bin/tabby-linux-x64.AppImage
-                    fi
-                done
-                printf "Tabby AppImage has been updated.\n"
                 printf "\n  Press enter to continue..."
-                read -r tabby_choice
             ;;
             3)
-                mkdir -p ~/.config/tabby
-                [ ! -f ~/.config/tabby/config.yaml ] || mv -v ~/.config/tabby/config.yaml ~/.config/tabby/config.yaml.bak
-                cp -v .config/tabby/config.yaml ~/.config/tabby/config.yaml
-                printf "Tabby config has been updated.\n"
                 printf "\n  Press enter to continue..."
-                read -r tabby_choice
             ;;
-            4)
-                rm -v ~/.local/bin/tabby-linux-x64.AppImage
-                rm -v ~/.config/tabby/config.yaml
-                rm -v ~/.local/share/applications/tabby.desktop
-                printf "Tabby AppImage, config and .desktop file have been removed.\n"
+            0)
+                break
+            ;;
+        esac
+    done
+}
+
+config_menu()
+{
+    while true; do
+        # Display the menu
+        clear
+        printf "\n  Please select an option:\n\n"
+        printf "    1. Install Alacritty config\n"
+        printf "    2. Install fastfetch config\n"
+        printf "    3. Install MangoHud config\n"
+        printf "    0. Return to main menu\n"
+        printf "\n  Enter your choice (0-3): "
+        read -r config_choice
+        printf "\n\n"
+        
+        case "$config_choice" in
+            1)
+                mkdir -p ~/.config/alacritty
+                [ ! -f ~/.config/alacritty/alacritty.toml ] || mv -v ~/.config/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml.bak
+                cp -v .config/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+                [ ! -f ~/.config/alacritty/keybinds.toml ] || mv -v ~/.config/alacritty/keybinds.toml ~/.config/alacritty/keybinds.toml.bak
+                cp -v .config/alacritty/keybinds.toml ~/.config/alacritty/keybinds.toml
+                [ ! -f ~/.config/alacritty/tritheme.toml ] || mv -v ~/.config/alacritty/tritheme.toml ~/.config/alacritty/tritheme.toml.bak
+                cp -v .config/alacritty/tritheme.toml ~/.config/alacritty/tritheme.toml
+                printf "Alacritty config files have been installed.\n"
                 printf "\n  Press enter to continue..."
-                read -r tabby_choice
+                read -r choice
+            ;;
+            2)
+                mkdir -p ~/.config/fastfetch
+                [ ! -f ~/.config/fastfetch/config.jsonc ] || mv -v ~/.config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc.bak
+                cp -v .config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
+                printf "fastfetch config has been installed.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
+            ;;
+            3)
+                mkdir -p ~/.config/MangoHud
+                [ ! -f ~/.config/MangoHud/MangoHud.conf ] || mv -v ~/.config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf.bak
+                cp -v .config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
+                printf "MangoHud config has been installed.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
             ;;
             0)
                 break
@@ -172,8 +171,7 @@ while true; do
     printf "\n  Please select an option:\n\n"
     printf "    1. Bash files menu\n"
     printf "    2. AppImage menu\n"
-    printf "    3. Install fastfetch config\n"
-    printf "    4. Install MangoHud config\n"
+    printf "    4. Config menu\n"
     printf "    0. Exit\n"
     printf "\n  Enter your choice (0-3): "
     read -r choice
@@ -187,20 +185,9 @@ while true; do
             appimage_menu
         ;;
         3)
-            mkdir -p ~/.config/fastfetch
-            [ ! -f ~/.config/fastfetch/config.jsonc ] || mv -v ~/.config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc.bak
-            cp -v .config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
-            printf "fastfetch config has been installed.\n"
-            printf "\n  Press enter to continue..."
-            read -r choice
         ;;
         4)
-            mkdir -p ~/.config/MangoHud
-            [ ! -f ~/.config/MangoHud/MangoHud.conf ] || mv -v ~/.config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf.bak
-            cp -v .config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
-            printf "MangoHud config has been installed.\n"
-            printf "\n  Press enter to continue..."
-            read -r choice
+            config_menu
         ;;
         0)
             exit 0

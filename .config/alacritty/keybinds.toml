@@ -1,0 +1,13 @@
+
+[mouse]
+bindings = [
+{ mouse = "Right", action = "Copy" },
+{ mouse = "Right", mods = "Control", action = "Paste" }
+]
+
+[keyboard]
+bindings = [
+    { key = "T", mods = "Control", action = "SpawnNewInstance" },
+    { key = "Enter", mods = "Alt", action = "ToggleFullScreen" },
+    { key = "Q", mods = "Control", action = "Quit" },
+]

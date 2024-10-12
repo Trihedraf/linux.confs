@@ -1,0 +1,31 @@
+# Colors (Trihedraf)
+
+[colors]
+draw_bold_text_with_bright_colors = true
+primary.background = "#0D0D0D"
+primary.foreground = "#f2f2f2"
+cursor.cursor = "#ffffff"
+
+[colors.normal]
+black = "#000000"
+red = "#990000"
+green = "#00a600"
+yellow = "#999900"
+blue = "#2009db"
+magenta = "#b200b2"
+cyan = "#00a6b2"
+white = "#bfbfbf"
+
+[colors.bright]
+black = "#666666"
+red = "#e50000"
+green = "#00d900"
+yellow = "#e5e500"
+blue = "#0000ff"
+magenta = "#e500e5"
+cyan = "#00e5e5"
+white = "#e5e5e5"
+
+[colors.selection]
+text = '#bfbfbf'
+background = '#666666'
