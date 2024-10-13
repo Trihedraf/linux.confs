@@ -287,6 +287,7 @@ while true; do
     #printf "    2. AppImage menu\n"
     printf "    2. Font menu\n"
     printf "    3. Config menu\n"
+    printf "    4. DevilutionX.desktop\n"
     printf "    0. Exit\n"
     printf "\n  Enter your choice (0-3): "
     read -r choice
@@ -307,6 +308,16 @@ while true; do
         ;;
         3)
             config_menu
+        ;;
+        4)
+            mkdir -p ~/.local/share/applications
+            [ ! -f ~/.local/share/applications/devilutionx.desktop ] || mv -v ~/.local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop.bak
+            cp -v .local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop
+            [ ! -f ~/.local/share/icons/devilutionx.png ] || mv -v ~/.local/share/icons/devilutionx.png ~/.local/share/icons/devilutionx.png.bak
+            cp -v .local/share/icons/devilutionx.png ~/.local/share/icons/devilutionx.png
+            printf "DevilutionX.desktop installed\n"
+            printf "\n  Press enter to continue..."
+            read -r choice
         ;;
         0)
             exit 0
