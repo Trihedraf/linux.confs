@@ -1,22 +1,17 @@
 alias sudo='sudo '
-alias ..='cd ..'
-alias ed='micro'
+alias aptup='sudo apt update && sudo apt upgrade'
+alias flatup='sudo flatpak update -y'
 alias grep='grep --color=auto'
 alias hg='_hg'
 alias l1='ls -A1 --color'
+alias lg='looking-glass-client -m 148 -f /dev/kvmfr0'
 alias ll='ls -lAh --g --full-time --color'
-alias mkcd='_mkcd'
-alias nano='micro'
 alias nas='ssh nas.lan'
 alias pa='ps -A | grep'
-alias rcp='rsync -vcAXtUhhP --inplace --numeric-ids --stats'
-alias rmed='_rmed'
-alias rmv='rsync -vcAXtUhhP --inplace --numeric-ids --stats --remove-source-files'
-alias romzip='_romzip'
 alias t='tmux attach || tmux new-session'
-alias used='du -ahx --apparent-size --time --max-depth=1 | sort -hr'
-alias uatt='sudo apt update && sudo apt upgrade && sudo flatpak update -y'
-alias vi='micro'
+alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
+
+# calendar
 alias jan='cal -m 01'
 alias feb='cal -m 02'
 alias mar='cal -m 03'
@@ -29,10 +24,37 @@ alias sep='cal -m 09'
 alias oct='cal -m 10'
 alias nov='cal -m 11'
 alias dec='cal -m 12'
+
+# disk
+alias dush='du -sh'
+alias used='du -ahx --apparent-size --time --max-depth=1 | sort -hr'
+
+# docker
 alias dcr='sudo docker compose down && sudo docker compose up -d'
 alias dcd='sudo docker compose down'
 alias dcp='sudo docker compose pull'
 alias dcu='sudo docker compose up -d'
 alias dlt='sudo docker logs -tf'
-alias dush='du -sh'
-alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
+alias dcl='sudo docker compose logs -tf'
+
+# file manipulation
+alias ..='cd ..'
+alias mkcd='_mkcd'
+alias rcp='rsync -vcAXtUhhP --inplace --numeric-ids --stats'
+alias rmed='_rmed'
+alias rmv='rsync -vcAXtUhhP --inplace --numeric-ids --stats --remove-source-files'
+alias romzip='_romzip'
+
+# micro
+alias ed='micro'
+alias nano='micro'
+alias vi='micro'
+
+# pacman
+alias apt-autopurge='sudo pacman -Qdtq | sudo pacman -Rns -'
+alias apt-autoremove='sudo pacman -Qdtq | sudo pacman -R -'
+alias apt-install='sudo pacman -S'
+alias apt-purge='sudo pacman -Rns'
+alias apt-remove='sudo pacman -R'
+alias apt-search='sudo pacman -Ss'
+alias apt-upgrade='sudo pacman -Syu'
