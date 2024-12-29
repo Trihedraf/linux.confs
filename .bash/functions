@@ -1,4 +1,6 @@
-
+function _ftd() {
+     find . -type f -exec sh -c 'mkdir "${1%.*}" ; mv "$1" "${1%.*}" ' _ {} \;
+}
 function _hg() {
     history | grep "$1";
 }
