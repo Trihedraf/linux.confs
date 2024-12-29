@@ -10,6 +10,7 @@ alias nas='ssh nas.lan'
 alias pa='ps -A | grep'
 alias t='tmux attach || tmux new-session'
 alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
+alias ftd="find . -type f -exec sh -c 'mkdir \"${1%.*}\" ; mv \"$1\" \"${1%.*}\" ' _ {} \;"
 
 # calendar
 alias jan='cal -m 01'
