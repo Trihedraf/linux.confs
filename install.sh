@@ -237,6 +237,7 @@ config_menu()
         printf "    1. Install fastfetch config\n"
         printf "    2. Install Konsole config\n"
         printf "    3. Install MangoHud config\n"
+        printf "    4. Enable nopasswd wheel\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-3): "
         read -r config_choice
@@ -268,6 +269,13 @@ config_menu()
                 [ ! -f ~/.config/MangoHud/MangoHud.conf ] || mv -v ~/.config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf.bak
                 cp -v .config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
                 printf "MangoHud config has been installed.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
+            ;;
+            4)
+                sudo mkdir -p /etc/sudoers.d
+                echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/wheel
+                printf "Enabled nopasswd wheel\n"
                 printf "\n  Press enter to continue..."
                 read -r choice
             ;;
