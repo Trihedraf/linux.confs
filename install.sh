@@ -286,6 +286,36 @@ config_menu()
     done
 }
 
+system_menu()
+{
+    while true; do
+        # Display the menu
+        clear
+        printf "\n  Please select an option:\n\n"
+        printf "    1. Disable DNS Stub Listener for Ubuntu\n"
+        printf "    0. Return to main menu\n"
+        printf "\n  Enter your choice (0-1): "
+        read -r config_choice
+        printf "\n\n"
+        
+        case "$config_choice" in
+            1)
+                sudo mkdir -p /etc/systemd/resolved.conf.d/
+                sudo chmod 755 /etc/systemd/resolved.conf.d/
+                printf "[Resolve]\nDNSStubListener=no\n" | sudo tee /etc/systemd/resolved.conf.d/noresolved.conf
+                sudo systemctl restart systemd-resolved.service
+                printf "DNS Stub Listener Disabled.\n"
+                printf "REBOOT MAY BE REQUIRED TO USE DNS.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
+            ;;
+            0)
+                break
+            ;;
+        esac
+    done
+}
+
 while true; do
     # Display the menu
     clear
@@ -295,9 +325,10 @@ while true; do
     #printf "    2. AppImage menu\n"
     printf "    2. Font menu\n"
     printf "    3. Config menu\n"
-    printf "    4. DevilutionX.desktop\n"
+    printf "    4. System menu\n"
+    printf "    5. DevilutionX.desktop\n"
     printf "    0. Exit\n"
-    printf "\n  Enter your choice (0-3): "
+    printf "\n  Enter your choice (0-5): "
     read -r choice
     printf "\n\n"
     
@@ -318,6 +349,9 @@ while true; do
             config_menu
         ;;
         4)
+            system_menu
+        ;;
+        5)
             mkdir -p ~/.local/share/applications
             [ ! -f ~/.local/share/applications/devilutionx.desktop ] || mv -v ~/.local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop.bak
             cp -v .local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop
