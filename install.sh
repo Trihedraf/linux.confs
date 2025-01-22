@@ -293,8 +293,9 @@ system_menu()
         clear
         printf "\n  Please select an option:\n\n"
         printf "    1. Disable DNS Stub Listener for Ubuntu\n"
+        printf "    2. Add fastfetch ppa to Ubuntu\n"
         printf "    0. Return to main menu\n"
-        printf "\n  Enter your choice (0-1): "
+        printf "\n  Enter your choice (0-2): "
         read -r config_choice
         printf "\n\n"
         
@@ -306,6 +307,13 @@ system_menu()
                 sudo systemctl restart systemd-resolved.service
                 printf "DNS Stub Listener Disabled.\n"
                 printf "REBOOT MAY BE REQUIRED TO USE DNS.\n"
+                printf "\n  Press enter to continue..."
+                read -r choice
+            ;;
+            2)
+                sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
+                sudo apt update
+                printf "Added fastfetch ppa.\n"
                 printf "\n  Press enter to continue..."
                 read -r choice
             ;;
