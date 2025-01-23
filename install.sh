@@ -250,7 +250,7 @@ config_menu()
                 cp -v .config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
                 printf "fastfetch config has been installed.\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r config_choice
             ;;
             2)
                 mkdir -p ~/.local/share/konsole
@@ -262,7 +262,7 @@ config_menu()
                 cp -v .config/konsolerc ~/.config/konsolerc
                 printf "Konsole config has been installed.\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r config_choice
             ;;
             3)
                 mkdir -p ~/.config/MangoHud
@@ -270,14 +270,14 @@ config_menu()
                 cp -v .config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
                 printf "MangoHud config has been installed.\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r config_choice
             ;;
             4)
                 sudo mkdir -p /etc/sudoers.d
                 echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/wheel
                 printf "Enabled nopasswd wheel\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r config_choice
             ;;
             0)
                 break
@@ -294,12 +294,14 @@ system_menu()
         printf "\n  Please select an option:\n\n"
         printf "    1. Disable DNS Stub Listener for Ubuntu\n"
         printf "    2. Add fastfetch ppa to Ubuntu\n"
+        printf "    3. Enable sftp in sshd_config.d\n"
+        printf "    4. Switch Netplan Renderer to Network Manager.\n"
         printf "    0. Return to main menu\n"
-        printf "\n  Enter your choice (0-2): "
-        read -r config_choice
+        printf "\n  Enter your choice (0-4): "
+        read -r system_choice
         printf "\n\n"
         
-        case "$config_choice" in
+        case "$system_choice" in
             1)
                 sudo mkdir -p /etc/systemd/resolved.conf.d/
                 sudo chmod 755 /etc/systemd/resolved.conf.d/
@@ -308,14 +310,29 @@ system_menu()
                 printf "DNS Stub Listener Disabled.\n"
                 printf "REBOOT MAY BE REQUIRED TO USE DNS.\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r system_choice
             ;;
             2)
                 sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
                 sudo apt update
-                printf "Added fastfetch ppa.\n"
+                printf "\nAdded fastfetch ppa.\n"
                 printf "\n  Press enter to continue..."
-                read -r choice
+                read -r system_choice
+            ;;
+            3)
+                printf "Subsystem sftp internal-sftp" | sudo tee /etc/ssh/sshd_config.d/sftp.conf
+                sudo systemctl reload ssh
+                printf "\nEnabled sftp\n"
+                printf "\n  Press enter to continue..."
+                read -r system_choice
+            ;;
+            4)
+                printf "network:\n  version: 2\n  renderer: NetworkManager" | sudo tee /etc/netplan/01-netcfg.yaml
+                sudo chmod 600 /etc/netplan/01-netcfg.yaml
+                sudo netplan apply
+                printf "\nSwitched Netplan render to NetworkManager"
+                printf "\n  Press enter to continue..."
+                read -r system_choice
             ;;
             0)
                 break
