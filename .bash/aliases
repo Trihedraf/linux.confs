@@ -46,6 +46,11 @@ alias rmed='_rmed'
 alias rmv='rsync -vcAXtUhhP --inplace --numeric-ids --stats --remove-source-files'
 alias romzip='_romzip'
 
+# file permissions
+alias chwrr='sudo chmod -R a=r,a+X,u+w'
+alias chwwr='sudo chmod -R a=r,a+X,u+w,g+w'
+alias ch777='sudo chmod -R 777'
+
 # micro
 alias ed='micro'
 alias nano='micro'
