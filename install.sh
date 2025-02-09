@@ -14,7 +14,7 @@ checkPackageManager() {
             break
         fi
     done
-    
+
     if [ -z "$PACKAGER" ]; then
         printf "%b\n" "${RED}Can't find a supported package manager${RC}"
         exit 1
@@ -36,7 +36,7 @@ bash_menu()
         printf "\n  Enter your choice (0-5): "
         read -r bash_choice
         printf "\n\n"
-        
+
         case "$bash_choice" in
             1)
                 mkdir -p ~/.bash
@@ -101,7 +101,7 @@ native_package_menu()
         printf "\n  Enter your choice (0-1): "
         read -r package_manager_choice
         printf "\n\n"
-        
+
         case "$package_manager_choice" in
             1)
                 checkPackageManager "apt-get dnf pacman nala zypper"
@@ -198,7 +198,7 @@ font_menu()
         printf "\n  Enter your choice (0-3): "
         read -r font_choice
         printf "\n\n"
-        
+
         case "$font_choice" in
             1)
                 mkdir -p ~/.local/share/fonts/commitmono-nerd
@@ -237,12 +237,13 @@ config_menu()
         printf "    1. Install fastfetch config\n"
         printf "    2. Install Konsole config\n"
         printf "    3. Install MangoHud config\n"
-        printf "    4. Enable nopasswd wheel\n"
+        printf "    4. Install micro config\n"
+        printf "    5. Enable nopasswd wheel\n"
         printf "    0. Return to main menu\n"
-        printf "\n  Enter your choice (0-3): "
+        printf "\n  Enter your choice (0-5): "
         read -r config_choice
         printf "\n\n"
-        
+
         case "$config_choice" in
             1)
                 mkdir -p ~/.config/fastfetch
@@ -273,6 +274,14 @@ config_menu()
                 read -r config_choice
             ;;
             4)
+                mkdir -p ~/.config/micro
+                [ ! -f ~/.config/micro/settings.json ] || mv -v ~/.config/micro/settings.json ~/.config/micro/settings.json.bak
+                cp -v .config/micro/settings.json ~/.config/micro/settings.json
+                printf "micro config has been installed.\n"
+                printf "\n  Press enter to continue..."
+                read -r config_choice
+            ;;
+            5)
                 sudo mkdir -p /etc/sudoers.d
                 echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/wheel
                 printf "Enabled nopasswd wheel\n"
@@ -300,7 +309,7 @@ system_menu()
         printf "\n  Enter your choice (0-4): "
         read -r system_choice
         printf "\n\n"
-        
+
         case "$system_choice" in
             1)
                 sudo mkdir -p /etc/systemd/resolved.conf.d/
@@ -356,7 +365,7 @@ while true; do
     printf "\n  Enter your choice (0-5): "
     read -r choice
     printf "\n\n"
-    
+
     case "$choice" in
         1)
             bash_menu

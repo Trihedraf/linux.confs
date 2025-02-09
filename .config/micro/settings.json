@@ -1,0 +1,18 @@
+{
+    "clipboard": "terminal",
+    "colorcolumn": 80,
+    "diffgutter": true,
+    "fakecursor": true,
+    "hlsearch": true,
+    "hltaberrors": true,
+    "hltrailingws": true,
+    "keymenu": true,
+    "mkparents": true,
+    "mouse": false,
+    "rmtrailingws": true,
+    "saveundo": true,
+    "scrollbar": true,
+    "status": true,
+    "tabmovement": true,
+    "tabstospaces": true
+}
