@@ -30,7 +30,7 @@ if [ -f ~/.bash/prompt ]; then
     . ~/.bash/prompt
 fi
 
-clear
-fastfetch
+#clear
+#fastfetch
 
 PROMPT_COMMAND=bash_prompt_command
