@@ -5,7 +5,7 @@ mkdir ~/git &&\
     cd ~/git/linux.confs &&\
     chmod +x ./install.sh &&\
     echo -e "1\n1\n\n0\n3\n4\n\n5\n\n0\n4\n3\n\n0\n0\n" | ./install.sh &&\
-    cp -r debian-trixie/etc/* /etc/
+    sudo cp -r debian-trixie/etc/* /etc/
 sudo apt update
 sudo apt-get install -y linux-headers-amd64 zfsutils-linux zfs-auto-snapshot
 git clone https://github.com/45drives/cockpit-zfs-manager.git ~/git/cockpit-zfs &&\
