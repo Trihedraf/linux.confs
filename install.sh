@@ -284,6 +284,7 @@ config_menu()
             5)
                 sudo mkdir -p /etc/sudoers.d
                 echo "%wheel ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/wheel
+                echo "%sudo ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/wheel
                 printf "Enabled nopasswd wheel\n"
                 printf "\n  Press enter to continue..."
                 read -r config_choice
