@@ -1,5 +1,5 @@
 sudo sh -c 'echo "" > /etc/motd'
-sudo apt-get install -y cockpit curl git ethtool micro rsync samba screen shellcheck wget
+sudo apt-get install -y cockpit curl git ethtool iperf3 micro net-tools resolvconf rsync samba screen shellcheck wget
 mkdir -pv ~/git
 git clone https://github.com/Trihedraf/linux.confs ~/git/linux.confs
 cd ~/git/linux.confs
