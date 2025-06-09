@@ -14,4 +14,4 @@ git clone https://github.com/45drives/cockpit-zfs-manager.git ~/git/cockpit-zfs 
 if ! command -v docker &> /dev/null; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker $(whoami)
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
-sudo systemctl enable --now udpgroforwarding.service
+sudo systemctl enable udpgroforwarding.service && echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
