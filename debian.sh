@@ -1,5 +1,5 @@
 sudo sh -c 'echo "" > /etc/motd'
-sudo apt-get install -y cockpit curl git ethtool iperf3 micro net-tools resolvconf rsync samba screen shellcheck wget
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cockpit curl git ethtool iperf3 micro net-tools resolvconf rsync samba screen shellcheck wget
 mkdir -pv ~/git
 git clone https://github.com/Trihedraf/linux.confs ~/git/linux.confs
 cd ~/git/linux.confs
@@ -7,7 +7,7 @@ chmod +x ./install.sh
 echo -e "1\n1\n\n0\n3\n4\n\n5\n\n0\n4\n3\n\n0\n0\n" | ./install.sh
 sudo cp -rv debian-trixie/etc/* /etc/ && sudo rm /etc/apt/sources.list
 sudo apt update
-sudo apt-get install -y linux-headers-amd64 zfsutils-linux zfs-auto-snapshot
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux zfs-auto-snapshot
 git clone https://github.com/45drives/cockpit-zfs-manager.git ~/git/cockpit-zfs &&\
     sudo systemctl enable cockpit.socket &&\
     sudo cp -rv ~/git/cockpit-zfs/zfs /usr/share/cockpit
