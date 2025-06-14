@@ -15,3 +15,4 @@ if ! command -v docker &> /dev/null; then curl -fsSL https://get.docker.com | sh
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
 sudo systemctl enable udpgroforwarding.service && echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
+echo "Please add nameserver ip_address to /etc/resolvconf/resolv.conf.d/base"
