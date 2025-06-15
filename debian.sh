@@ -8,7 +8,7 @@ sudo apt-get update
 chmod +x ./install.sh
 echo -e "1\n1\n\n0\n3\n4\n\n5\n\n0\n4\n3\n\n0\n0\n" | ./install.sh
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux zfs-auto-snapshot
-pipx install zfs-autobackup
+sudo pipx install --global zfs-autobackup
 git clone https://github.com/45drives/cockpit-zfs-manager.git ~/git/cockpit-zfs &&\
     sudo cp -rv ~/git/cockpit-zfs/zfs /usr/share/cockpit &&\
     sudo systemctl enable cockpit.socket
