@@ -1,5 +1,6 @@
 sudo sh -c 'echo "" > /etc/motd'
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cockpit curl git ethtool iperf3 micro net-tools pipx resolvconf rsync samba screen shellcheck wget
+sudo resolvconf -u
 mkdir -pv ~/git
 git clone https://github.com/Trihedraf/linux.confs ~/git/linux.confs
 cd ~/git/linux.confs
