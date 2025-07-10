@@ -17,6 +17,7 @@ git clone https://github.com/Trihedraf/linux.confs ~/git/linux.confs &&\
 git clone https://aur.archlinux.org/paru.git ~/git/paru &&\
     cd ~/git/paru &&\
     makepkg -si --noconfirm --needed &&\
+    mkdir -pv ~/.config/paru/ &&\
     printf "[options]\nSkipReview\n" > ~/.config/paru/paru.conf
 
 paru -S multitail
