@@ -3,8 +3,8 @@ sudo cp -v ./archlinux/etc/pacman.conf /etc/pacman.conf
 
 sudo pacman -S --noconfirm --needed base-devel cmake docker docker-buildx \
     docker-compose fastfetch flatpak giflib lib32-giflib git github-cli gnutls \
-    lib32-gnutls libpng lib32-libpng make man-db micro ncurses \
-    lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tar \
+    lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 \
+    ncurses lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tar \
     tree tldr trash-cli unzip wget zip 
 
 sudo flatpak remote-add --if-not-exists flathub \
