@@ -21,7 +21,7 @@ checkPackageManager() {
     fi
 }
 
-bash_menu()
+shell_menu()
 {
     while true; do
         # Display the menu
@@ -32,12 +32,17 @@ bash_menu()
         printf "    3. Update .bash/aliases\n"
         printf "    4. Update .bash/functions\n"
         printf "    5. Update .bash/prompt\n"
+        printf "    6. Install all zsh files\n"
+        printf "    7. Update .zshrc\n"
+        printf "    8. Update .zsh/aliases\n"
+        printf "    9. Update .zsh/functions\n"
+        printf "    10. Update .zsh/prompt\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-5): "
-        read -r bash_choice
+        read -r shell_choice
         printf "\n\n"
 
-        case "$bash_choice" in
+        case "$shell_choice" in
             1)
                 mkdir -p ~/.bash
                 [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
@@ -50,14 +55,14 @@ bash_menu()
                 cp -v .bash/prompt ~/.bash/prompt
                 printf "All bash files have been installed. Please run . ~/.bashrc or logout and back in to enable the bash files.\n"
                 printf "\n  Press enter to continue..."
-                read -r bash_choice
+                read -r shell_choice
             ;;
             2)
                 [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
                 cp -v .bashrc ~/.bashrc
                 printf "Please run . ~/.bashrc or logout and back in to reload the .bashrc.\n"
                 printf "\n  Press any key to continue..."
-                read -r bash_choice
+                read -r shell_choice
             ;;
             3)
                 mkdir -p ~/.bash
@@ -65,7 +70,7 @@ bash_menu()
                 cp -v .bash/aliases ~/.bash/aliases
                 printf "Please run . ~/.bashrc or logout and back in to reload the aliases.\n"
                 printf "\n  Press enter to continue..."
-                read -r bash_choice
+                read -r shell_choice
             ;;
             4)
                 mkdir -p ~/.bash
@@ -73,7 +78,7 @@ bash_menu()
                 cp -v .bash/functions ~/.bash/functions
                 printf "Please run . ~/.bashrc or logout and back in to reload the functions.\n"
                 printf "\n  Press enter to continue..."
-                read -r bash_choice
+                read -r shell_choice
             ;;
             5)
                 mkdir -p ~/.bash
@@ -81,7 +86,52 @@ bash_menu()
                 cp -v .bash/prompt ~/.bash/prompt
                 printf "Please run . ~/.bashrc or logout and back in to reload the prompt.\n"
                 printf "\n  Press enter to continue..."
-                read -r bash_choice
+                read -r shell_choice
+            ;;
+            6)
+                mkdir -p ~/.zsh
+                [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
+                cp -v .zshrc ~/.zshrc
+                [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
+                cp -v .zsh/aliases ~/.zsh/aliases
+                [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
+                cp -v .zsh/functions ~/.zsh/functions
+                [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
+                cp -v .zsh/prompt ~/.zsh/prompt
+                printf "All zsh files have been installed. Please run . ~/.zshrc or logout and back in to enable the zsh files.\n"
+                printf "\n  Press enter to continue..."
+                read -r shell_choice
+            ;;
+            7)
+                [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
+                cp -v .zshrc ~/.zshrc
+                printf "Please run . ~/.zshrc or logout and back in to reload the .zshrc.\n"
+                printf "\n  Press any key to continue..."
+                read -r shell_choice
+            ;;
+            8)
+                mkdir -p ~/.zsh
+                [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
+                cp -v .zsh/aliases ~/.zsh/aliases
+                printf "Please run . ~/.zshrc or logout and back in to reload the aliases.\n"
+                printf "\n  Press enter to continue..."
+                read -r shell_choice
+            ;;
+            9)
+                mkdir -p ~/.zsh
+                [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
+                cp -v .zsh/functions ~/.zsh/functions
+                printf "Please run . ~/.zshrc or logout and back in to reload the functions.\n"
+                printf "\n  Press enter to continue..."
+                read -r shell_choice
+            ;;
+            10)
+                mkdir -p ~/.zsh
+                [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
+                cp -v .zsh/prompt ~/.zsh/prompt
+                printf "Please run . ~/.zshrc or logout and back in to reload the prompt.\n"
+                printf "\n  Press enter to continue..."
+                read -r shell_choice
             ;;
             0)
                 break
@@ -355,7 +405,7 @@ while true; do
     # Display the menu
     clear
     printf "\n  Please select an option:\n\n"
-    printf "    1. Bash files menu\n"
+    printf "    1. Shell files menu\n"
     #printf "    2. Native Package menu\n"
     #printf "    2. AppImage menu\n"
     printf "    2. Font menu\n"
@@ -369,7 +419,7 @@ while true; do
 
     case "$choice" in
         1)
-            bash_menu
+            shell_menu
         ;;
         #2)
         #    native_package_menu
