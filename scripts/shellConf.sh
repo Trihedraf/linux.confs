@@ -16,31 +16,67 @@ do
 done
 shift $((OPTIND - 1))
 
-all_bash()
-{
-    mkdir -p ~/.bash
+bash_rc() {
     [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
     cp -v .bashrc ~/.bashrc
+}
+
+bash_aliases() {
+    mkdir -p ~/.bash
     [ ! -f ~/.bash/aliases ] || mv -v ~/.bash/aliases ~/.bash/aliases.bak
     cp -v .bash/aliases ~/.bash/aliases
+}
+
+bash_functions() {
+    mkdir -p ~/.bash
     [ ! -f ~/.bash/functions ] || mv -v ~/.bash/functions ~/.bash/functions.bak
     cp -v .bash/functions ~/.bash/functions
+}
+
+bash_prompt() {
+    mkdir -p ~/.bash
     [ ! -f ~/.bash/prompt ] || mv -v ~/.bash/prompt ~/.bash/prompt.bak
     cp -v .bash/prompt ~/.bash/prompt
+}
+
+all_bash()
+{
+    bash_rc
+    bash_aliases
+    bash_functions
+    bash_prompt
     printf "All bash files have been installed. Please run . ~/.bashrc or logout and back in to enable the bash files.\n"
+}
+
+zsh_rc() {
+    [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
+    cp -v .zshrc ~/.zshrc
+}
+
+zsh_aliases() {
+    mkdir -p ~/.zsh
+    [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
+    cp -v .zsh/aliases ~/.zsh/aliases
+}
+
+zsh_functions() {
+    mkdir -p ~/.zsh
+    [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
+    cp -v .zsh/functions ~/.zsh/functions
+}
+
+zsh_prompt() {
+    mkdir -p ~/.zsh
+    [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
+    cp -v .zsh/prompt ~/.zsh/prompt
 }
 
 all_zsh()
 {
-    mkdir -p ~/.zsh
-    [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
-    cp -v .zshrc ~/.zshrc
-    [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
-    cp -v .zsh/aliases ~/.zsh/aliases
-    [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
-    cp -v .zsh/functions ~/.zsh/functions
-    [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
-    cp -v .zsh/prompt ~/.zsh/prompt
+    zsh_rc
+    zsh_aliases
+    zsh_functions
+    zsh_prompt
     printf "All zsh files have been installed. Please run . ~/.zshrc or logout and back in to enable the zsh files.\n"
 }
 
@@ -70,52 +106,38 @@ shell_menu()
                 all_bash
             ;;
             2)
-                [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
-                cp -v .bashrc ~/.bashrc
+                bash_rc
                 printf "Please run . ~/.bashrc or logout and back in to reload the .bashrc.\n"
             ;;
             3)
-                mkdir -p ~/.bash
-                [ ! -f ~/.bash/aliases ] || mv -v ~/.bash/aliases ~/.bash/aliases.bak
-                cp -v .bash/aliases ~/.bash/aliases
+                bash_aliases
                 printf "Please run . ~/.bashrc or logout and back in to reload the aliases.\n"
             ;;
             4)
-                mkdir -p ~/.bash
-                [ ! -f ~/.bash/functions ] || mv -v ~/.bash/functions ~/.bash/functions.bak
-                cp -v .bash/functions ~/.bash/functions
+                bash_functions
                 printf "Please run . ~/.bashrc or logout and back in to reload the functions.\n"
             ;;
             5)
-                mkdir -p ~/.bash
-                [ ! -f ~/.bash/prompt ] || mv -v ~/.bash/prompt ~/.bash/prompt.bak
-                cp -v .bash/prompt ~/.bash/prompt
+                bash_prompt
                 printf "Please run . ~/.bashrc or logout and back in to reload the prompt.\n"
             ;;
             6)
                 all_zsh
             ;;
             7)
-                [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
-                cp -v .zshrc ~/.zshrc
+                zsh_rc
                 printf "Please run . ~/.zshrc or logout and back in to reload the .zshrc.\n"
             ;;
             8)
-                mkdir -p ~/.zsh
-                [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
-                cp -v .zsh/aliases ~/.zsh/aliases
+                zsh_aliases
                 printf "Please run . ~/.zshrc or logout and back in to reload the aliases.\n"
             ;;
             9)
-                mkdir -p ~/.zsh
-                [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
-                cp -v .zsh/functions ~/.zsh/functions
+                zsh_functions
                 printf "Please run . ~/.zshrc or logout and back in to reload the functions.\n"
             ;;
             10)
-                mkdir -p ~/.zsh
-                [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
-                cp -v .zsh/prompt ~/.zsh/prompt
+                zsh_prompt
                 printf "Please run . ~/.zshrc or logout and back in to reload the prompt.\n"
             ;;
             0)

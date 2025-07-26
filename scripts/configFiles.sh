@@ -18,7 +18,6 @@ shift $((OPTIND - 1))
 
 konsole_config()
 {
-    
     mkdir -p ~/.local/share/konsole
     [ ! -f ~/.local/share/konsole/tri.profile ] || mv -v ~/.local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile.bak
     cp -v ../.local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile

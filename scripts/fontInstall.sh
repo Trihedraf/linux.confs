@@ -13,23 +13,29 @@ do
 done
 shift $((OPTIND - 1))
 
-commitMono()
+commit_mono()
 {
     mkdir -p ~/.local/share/fonts/commitmono-nerd
     wget -q --show-progress --progress=bar:force:noscroll https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CommitMono.zip -O - | bsdtar -xvf- -C ~/.local/share/fonts/commitmono-nerd "CommitMonoNerdFontMono-*.otf"
     printf "CommitMono Nerd Font has been installed.\n"
 }
 
-mesloLGS() {
+meslo_lgs() {
     mkdir -p ~/.local/share/fonts/meslo-lgs-nerd
     wget -q --show-progress --progress=bar:force:noscroll https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip -O - | bsdtar -xvf- -C ~/.local/share/fonts/meslo-lgs-nerd "MesloLGSNerdFontMono-*.ttf"
     printf "Meslo Nerd Font has been installed.\n"
 }
 
-ubuntuMono() {
+ubuntu_mono() {
     mkdir -p ~/.local/share/fonts/ubuntu-mono-nerd
-    wget -q --show-progress --progress=bar:force:noscroll https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.zip -O - | bsdtar -xvf- -C ~/.local/share/fonts/ubuntu-mono-nerd "UbuntuMonoNerdFontMono-*.ttf"
+    wget -q --show-progress --progress=bar:force:noscroll https://github.com/ryanoasis/nerd-fonts/releases/latest/download/ubuntu_mono.zip -O - | bsdtar -xvf- -C ~/.local/share/fonts/ubuntu-mono-nerd "ubuntu_monoNerdFontMono-*.ttf"
     printf "Ubuntu Mono Nerd Font has been installed.\n"
+}
+
+all_Fonts() {
+    commit_mono
+    meslo_lgs
+    ubuntu_mono
 }
 
 font_menu()
@@ -50,18 +56,16 @@ font_menu()
         
         case "$font_choice" in
             1)
-                commitMono
+                commit_mono
             ;;
             2)
-                mesloLGS
+                meslo_lgs
             ;;
             3)
-                ubuntuMono
+                ubuntu_mono
             ;;
             4)
-                commitMono
-                mesloLGS
-                ubuntuMono
+                all_Fonts
             ;;
             0)
                 break
@@ -73,7 +77,5 @@ font_menu()
 }
 
 if [ -n "$allFonts" ]; then
-    commitMono
-    mesloLGS
-    ubuntuMono
+    all_Fonts
 fi
