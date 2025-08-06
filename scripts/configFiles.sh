@@ -5,8 +5,8 @@ terminalConfigs=
 while getopts dth? name
 do
     case $name in
-        b)      desktopConfigs=1;;
-        z)      terminalConfigs=1;;
+        d)      desktopConfigs=1;;
+        t)      terminalConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
             printf "\-d      Install all Desktop Configs\n"

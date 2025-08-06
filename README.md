@@ -10,5 +10,5 @@ curl -fsSL https://raw.githubusercontent.com/Trihedraf/linux.confs/refs/heads/ma
 
 # Debian Trixie System Setup Script
 ```bash
-sudo apt install curl && curl -fsSL https://raw.githubusercontent.com/Trihedraf/linux.confs/refs/heads/master/debian.sh | sh
+sudo apt install curl && curl -fsSL https://raw.githubusercontent.com/Trihedraf/linux.confs/refs/heads/master/debian.sh | sh -s -- --docker=ON --tailscale=ON --zfs=ON
 ```

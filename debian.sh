@@ -1,31 +1,95 @@
-#!/bin/sh
+#!/bin/bash
+
+optList=$(getopt -o d:t:z:h --long docker:,tailscale:,zfs:,help -n 'debian.sh' -- "$@")
+eval set -- "$optList"
+
+dockerInstall=1
+tailscaleInstall=1
+zfsInstall=0
+
+while true; do
+    case "$1" in
+        -d | --docker)
+            if [ "$2" = "ON" ]; then
+                dockerInstall="1"
+                elif [ "$2" = "OFF" ]; then
+                dockerInstall="0"
+            else
+                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
+            fi
+            shift 2
+        ;;
+        -t | --tailscale)
+            if [ "$2" = "ON" ]; then
+                tailscaleInstall="1"
+                elif [ "$2" = "OFF" ]; then
+                tailscaleInstall="0"
+            else
+                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
+            fi
+            shift 2
+        ;;
+        -z | --zfs)
+            if [ "$2" = "ON" ]; then
+                zfsInstall="1"
+                elif [ "$2" = "OFF" ]; then
+                zfsInstall="0"
+            else
+                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
+            fi
+            shift 2
+        ;;
+        -h | --help)
+            printf "Usage: %s: [OPTION]\n" "$0"
+            printf "    -h,--help           This help\n\n"
+            printf "    Valid options for the following flags are ON and OFF.   Default\n"
+            printf "    -d,--docker      Enable or Disable Docker install.      ON\n"
+            printf "    -t,--tailscale   Enable or Disable Tailscale install.   ON\n"
+            printf "    -z,--zfs         Enable or Disable ZFS install.         OFF\n"
+            exit 2
+        ;;
+        *)
+            break
+        ;;
+    esac
+done
+
 sudo sh -c 'echo "" > /etc/motd'
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cockpit curl git ethtool iperf3 micro net-tools pipx resolvconf rsync samba screen shellcheck wget zsh &&\
+if sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cockpit curl git ethtool iperf3 micro net-tools pipx resolvconf rsync samba screen shellcheck wget zsh; then
     sudo resolvconf -u
-
-mkdir -pv ~/git
-
-git clone https://github.com/Trihedraf/linux.confs ~/git/linux.confs &&\
-    cd ~/git/linux.confs &&\
-    chmod +x ./install.sh &&\
-    printf "1\n6\n\n0\n3\n4\n\n5\n\n0\n4\n3\n\n0\n0\n" | ./install.sh &&\
-    sudo cp -rv debian-trixie/etc/* /etc/ &&\
-    sudo rm /etc/apt/sources.list &&\
-    sudo apt-get update &&\
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux zfs-auto-snapshot &&\
-    sudo pipx install --global zfs-autobackup &&\
-    sudo systemctl enable --now zfs-load-key.service
-
-git clone https://github.com/45drives/cockpit-zfs-manager.git ~/git/cockpit-zfs &&\
-    sudo cp -rv ~/git/cockpit-zfs/zfs /usr/share/cockpit &&\
     sudo systemctl enable cockpit.socket
+else
+    exit
+fi
 
-if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
+if [ "$tailscaleInstall" = 1 ]; then
+    if ! command -v tailscale > /dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh; fi
+fi
 
-curl -fsSL https://tailscale.com/install.sh | sh &&\
-    sudo sysctl -p /etc/sysctl.d/99-tailscale.conf &&\
-    sudo systemctl enable udpgroforwarding.service &&\
-    echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
+if [ "$dockerInstall" = 1 ]; then
+    if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
+fi
 
+if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs" ; then
+    if cd "$HOME/git/linux.confs"; then
+        chmod +x "./install.sh" && chmod -R +x "./scripts/"
+        ./scripts/configFiles.sh -t || printf "terminal app configurations failed"
+        ./scripts/shellConf.sh -bz || printf "shell configuration failed"
+        if sudo cp -rv ./debian-trixie/etc/* /etc/; then
+            sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+            sudo systemctl enable udpgroforwarding.service
+            sudo rm /etc/apt/sources.list && sudo apt-get update
+            if [ "$zfsInstall" = 1 ]; then
+                sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux &&\
+                sudo systemctl enable --now zfs-load-key.service &&\
+                sudo pipx install --global zfs-autobackup
+                git clone https://github.com/45drives/cockpit-zfs-manager.git "$HOME/git/cockpit-zfs" &&\
+                sudo cp -rv "$HOME/git/cockpit-zfs/zfs" "/usr/share/cockpit"
+            fi
+        fi
+    fi
+fi
+
+echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
 echo "Please add nameserver ip_address to /etc/resolvconf/resolv.conf.d/base"
