@@ -5,6 +5,10 @@ function _hg() {
     history | grep "$1";
 }
 
+function _jwtgen() {
+    docker run -it --rm node node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+}
+
 function _mkcd () {
     local arg1="$1"
 	local mysudo="$2"
