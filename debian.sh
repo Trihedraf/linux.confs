@@ -91,5 +91,6 @@ if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs" ; 
     fi
 fi
 
+echo "run 'chsh -s /bin/zsh' to set your shell to zsh"
 echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
 echo "Please add nameserver ip_address to /etc/resolvconf/resolv.conf.d/base"

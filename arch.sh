@@ -23,3 +23,6 @@ git clone https://aur.archlinux.org/paru.git ~/git/paru &&\
     printf "[options]\nSkipReview\n" > ~/.config/paru/paru.conf
 
 paru -S multitail
+
+echo "run 'chsh -s /bin/zsh' to set your shell to zsh"
+echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
