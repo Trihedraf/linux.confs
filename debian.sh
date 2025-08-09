@@ -71,11 +71,13 @@ if [ "$dockerInstall" = 1 ]; then
     if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
 fi
 
-if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs" ; then
+if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
+    if cd "$HOME/git/linux.confs/scripts"; then
+        chmod +x ./*
+        ./configFiles.sh -t || printf "terminal app configurations failed"
+        ./shellConf.sh -bz || printf "shell configuration failed"
+    fi
     if cd "$HOME/git/linux.confs"; then
-        chmod +x "./install.sh" && chmod -R +x "./scripts/"
-        ./scripts/configFiles.sh -t || printf "terminal app configurations failed"
-        ./scripts/shellConf.sh -bz || printf "shell configuration failed"
         if sudo cp -rv ./debian-trixie/etc/* /etc/; then
             sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
             sudo systemctl enable udpgroforwarding.service
