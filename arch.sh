@@ -33,7 +33,6 @@ sudo pacman -S --noconfirm --needed git
 
 if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
     if cd "$HOME/git/linux.confs/scripts"; then
-        chmod +x ./*
         ./configFiles.sh -t || printf "terminal app configurations failed"
         ./shellConf.sh -bz || printf "shell configuration failed"
     fi

@@ -74,7 +74,6 @@ fi
 [ ! -d "$HOME/git/linux.confs " ] || git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
 
 if cd "$HOME/git/linux.confs/scripts"; then
-    chmod +x ./*
     ./configFiles.sh -t || printf "terminal app configurations failed"
     ./shellConf.sh -bz || printf "shell configuration failed"
 fi
