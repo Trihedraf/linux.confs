@@ -71,24 +71,24 @@ if [ "$dockerInstall" = 1 ]; then
     if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
 fi
 
-if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
-    if cd "$HOME/git/linux.confs/scripts"; then
-        chmod +x ./*
-        ./configFiles.sh -t || printf "terminal app configurations failed"
-        ./shellConf.sh -bz || printf "shell configuration failed"
-    fi
-    if cd "$HOME/git/linux.confs"; then
-        if sudo cp -rv ./debian-trixie/etc/* /etc/; then
-            sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
-            sudo systemctl enable udpgroforwarding.service
-            sudo rm /etc/apt/sources.list && sudo apt-get update
-            if [ "$zfsInstall" = 1 ]; then
-                sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux &&\
-                sudo systemctl enable --now zfs-load-key.service &&\
-                sudo pipx install --global zfs-autobackup
-                git clone https://github.com/45drives/cockpit-zfs-manager.git "$HOME/git/cockpit-zfs" &&\
-                sudo cp -rv "$HOME/git/cockpit-zfs/zfs" "/usr/share/cockpit"
-            fi
+[ ! -d "$HOME/git/linux.confs " ] || git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
+
+if cd "$HOME/git/linux.confs/scripts"; then
+    chmod +x ./*
+    ./configFiles.sh -t || printf "terminal app configurations failed"
+    ./shellConf.sh -bz || printf "shell configuration failed"
+fi
+if cd "$HOME/git/linux.confs"; then
+    if sudo cp -rv ./debian-trixie/etc/* /etc/; then
+        sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+        sudo systemctl enable udpgroforwarding.service
+        sudo rm /etc/apt/sources.list && sudo apt-get update
+        if [ "$zfsInstall" = 1 ]; then
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux &&\
+            sudo systemctl enable --now zfs-load-key.service &&\
+            sudo pipx install --global zfs-autobackup
+            git clone https://github.com/45drives/cockpit-zfs-manager.git "$HOME/git/cockpit-zfs" &&\
+            sudo cp -rv "$HOME/git/cockpit-zfs/zfs" "/usr/share/cockpit"
         fi
     fi
 fi
