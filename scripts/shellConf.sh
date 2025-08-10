@@ -18,25 +18,25 @@ shift $((OPTIND - 1))
 
 bash_rc() {
     [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
-    cp -v .bashrc ~/.bashrc
+    cp -v ../.bashrc ~/.bashrc
 }
 
 bash_aliases() {
     mkdir -p ~/.bash
     [ ! -f ~/.bash/aliases ] || mv -v ~/.bash/aliases ~/.bash/aliases.bak
-    cp -v .bash/aliases ~/.bash/aliases
+    cp -v ../.bash/aliases ~/.bash/aliases
 }
 
 bash_functions() {
     mkdir -p ~/.bash
     [ ! -f ~/.bash/functions ] || mv -v ~/.bash/functions ~/.bash/functions.bak
-    cp -v .bash/functions ~/.bash/functions
+    cp -v ../.bash/functions ~/.bash/functions
 }
 
 bash_prompt() {
     mkdir -p ~/.bash
     [ ! -f ~/.bash/prompt ] || mv -v ~/.bash/prompt ~/.bash/prompt.bak
-    cp -v .bash/prompt ~/.bash/prompt
+    cp -v ../.bash/prompt ~/.bash/prompt
 }
 
 all_bash()
@@ -50,25 +50,25 @@ all_bash()
 
 zsh_rc() {
     [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
-    cp -v .zshrc ~/.zshrc
+    cp -v ../.zshrc ~/.zshrc
 }
 
 zsh_aliases() {
     mkdir -p ~/.zsh
     [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
-    cp -v .zsh/aliases ~/.zsh/aliases
+    cp -v ../.zsh/aliases ~/.zsh/aliases
 }
 
 zsh_functions() {
     mkdir -p ~/.zsh
     [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
-    cp -v .zsh/functions ~/.zsh/functions
+    cp -v ../.zsh/functions ~/.zsh/functions
 }
 
 zsh_prompt() {
     mkdir -p ~/.zsh
     [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
-    cp -v .zsh/prompt ~/.zsh/prompt
+    cp -v ../.zsh/prompt ~/.zsh/prompt
 }
 
 all_zsh()
