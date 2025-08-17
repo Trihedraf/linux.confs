@@ -71,7 +71,7 @@ if [ "$dockerInstall" = 1 ]; then
     if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
 fi
 
-[ ! -d "$HOME/git/linux.confs " ] || git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
+[ ! -d "$HOME/git/linux.confs" ] || git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
 
 if cd "$HOME/git/linux.confs/scripts"; then
     ./configFiles.sh -t || printf "terminal app configurations failed"
