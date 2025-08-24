@@ -1,5 +1,5 @@
 #!/bin/sh
-cd "$(dirname $(realpath $0))" && cd ../ && gitpath = "$(pwd)" && cd "$(realpath $0)"
+cd "$(dirname $(realpath $0))" && cd ../ && gitpath="$(pwd)" && cd "$(dirname $(realpath $0))"
 
 allBash=
 allZsh=
@@ -159,7 +159,7 @@ if [ -n "$allZsh" ]; then
     all_zsh
 fi
 
-if [ -z "$allBash" ] || [ -z "$allZsh" ]; then
+if [ -z "$allBash" ] && [ -z "$allZsh" ]; then
     mkdir -p ~/.bash
     mkdir -p ~/.zsh
     shell_menu
