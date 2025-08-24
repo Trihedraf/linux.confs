@@ -151,10 +151,12 @@ shell_menu()
 if [ -n "$allBash" ]; then
     mkdir -p ~/.bash
     all_bash
+fi
 
 if [ -n "$allZsh" ]; then
     mkdir -p ~/.zsh
     all_zsh
+fi
 
 if [ -z "$allBash" ] || [ -z "$allZsh" ]; then
     mkdir -p ~/.bash
