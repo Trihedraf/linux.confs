@@ -1,4 +1,5 @@
 #!/bin/sh
+cd "$(dirname $(realpath $0))" && cd ../ && gitpath="$(pwd)" && cd "$(dirname $(realpath $0))"
 
 allBash=
 allZsh=
@@ -16,27 +17,29 @@ do
 done
 shift $((OPTIND - 1))
 
+rm_link_or_mv_bak() {
+    [ ! -L "$1" ] || rm -v "$1"
+    [ ! -f "$1" ] || mv -v "$1" "$1.bak"
+}
+
 bash_rc() {
-    [ ! -f ~/.bashrc ] || mv -v ~/.bashrc ~/.bashrc.bak
-    cp -v ../.bashrc ~/.bashrc
+    rm_link_or_mv_bak ~/.bashrc
+    ln -sv "$gitpath/.bashrc" ~/.bashrc
 }
 
 bash_aliases() {
-    mkdir -p ~/.bash
-    [ ! -f ~/.bash/aliases ] || mv -v ~/.bash/aliases ~/.bash/aliases.bak
-    cp -v ../.bash/aliases ~/.bash/aliases
+    rm_link_or_mv_bak ~/.bash/aliases
+    ln -sv "$gitpath/.bash/aliases" ~/.bash/aliases
 }
 
 bash_functions() {
-    mkdir -p ~/.bash
-    [ ! -f ~/.bash/functions ] || mv -v ~/.bash/functions ~/.bash/functions.bak
-    cp -v ../.bash/functions ~/.bash/functions
+    rm_link_or_mv_bak ~/.bash/functions
+    ln -sv "$gitpath/.bash/functions" ~/.bash/functions
 }
 
 bash_prompt() {
-    mkdir -p ~/.bash
-    [ ! -f ~/.bash/prompt ] || mv -v ~/.bash/prompt ~/.bash/prompt.bak
-    cp -v ../.bash/prompt ~/.bash/prompt
+    rm_link_or_mv_bak ~/.bash/prompt
+    ln -sv "$gitpath/.bash/prompt" ~/.bash/prompt
 }
 
 all_bash()
@@ -45,30 +48,27 @@ all_bash()
     bash_aliases
     bash_functions
     bash_prompt
-    printf "All bash files have been installed. Please run . ~/.bashrc or logout and back in to enable the bash files.\n"
+    printf "All bash files have been linked. Please run . ~/.bashrc or logout and back in to enable the bash files.\n"
 }
 
 zsh_rc() {
-    [ ! -f ~/.zshrc ] || mv -v ~/.zshrc ~/.zshrc.bak
-    cp -v ../.zshrc ~/.zshrc
+    rm_link_or_mv_bak ~/.zshrc
+    ln -sv "$gitpath/.zshrc" ~/.zshrc
 }
 
 zsh_aliases() {
-    mkdir -p ~/.zsh
-    [ ! -f ~/.zsh/aliases ] || mv -v ~/.zsh/aliases ~/.zsh/aliases.bak
-    cp -v ../.zsh/aliases ~/.zsh/aliases
+    rm_link_or_mv_bak ~/.zsh/aliases
+    ln -sv "$gitpath/.zsh/aliases" ~/.zsh/aliases
 }
 
 zsh_functions() {
-    mkdir -p ~/.zsh
-    [ ! -f ~/.zsh/functions ] || mv -v ~/.zsh/functions ~/.zsh/functions.bak
-    cp -v ../.zsh/functions ~/.zsh/functions
+    rm_link_or_mv_bak ~/.zsh/functions
+    ln -sv "$gitpath/.zsh/functions" ~/.zsh/functions
 }
 
 zsh_prompt() {
-    mkdir -p ~/.zsh
-    [ ! -f ~/.zsh/prompt ] || mv -v ~/.zsh/prompt ~/.zsh/prompt.bak
-    cp -v ../.zsh/prompt ~/.zsh/prompt
+    rm_link_or_mv_bak ~/.zsh/prompt
+    ln -sv "$gitpath/.zsh/prompt" ~/.zsh/prompt
 }
 
 all_zsh()
@@ -77,7 +77,7 @@ all_zsh()
     zsh_aliases
     zsh_functions
     zsh_prompt
-    printf "All zsh files have been installed. Please run . ~/.zshrc or logout and back in to enable the zsh files.\n"
+    printf "All zsh files have been linked. Please run . ~/.zshrc or logout and back in to enable the zsh files.\n"
 }
 
 shell_menu()
@@ -86,16 +86,16 @@ shell_menu()
         # Display the menu
         clear
         printf "\n  Please select an option:\n\n"
-        printf "    1. Install all bash files\n"
-        printf "    2. Update .bashrc\n"
-        printf "    3. Update .bash/aliases\n"
-        printf "    4. Update .bash/functions\n"
-        printf "    5. Update .bash/prompt\n"
-        printf "    6. Install all zsh files\n"
-        printf "    7. Update .zshrc\n"
-        printf "    8. Update .zsh/aliases\n"
-        printf "    9. Update .zsh/functions\n"
-        printf "    10. Update .zsh/prompt\n"
+        printf "    1. Link all bash files\n"
+        printf "    2. Link .bashrc\n"
+        printf "    3. Link .bash/aliases\n"
+        printf "    4. Link .bash/functions\n"
+        printf "    5. Link .bash/prompt\n"
+        printf "    6. Link all zsh files\n"
+        printf "    7. Link .zshrc\n"
+        printf "    8. Link .zsh/aliases\n"
+        printf "    9. Link .zsh/functions\n"
+        printf "    10. Link .zsh/prompt\n"
         printf "    0. Return to main menu\n"
         printf "\n  Enter your choice (0-5): "
         read -r shell_choice
@@ -150,9 +150,17 @@ shell_menu()
 }
 
 if [ -n "$allBash" ]; then
+    mkdir -p ~/.bash
     all_bash
 fi
 
 if [ -n "$allZsh" ]; then
+    mkdir -p ~/.zsh
     all_zsh
+fi
+
+if [ -z "$allBash" ] && [ -z "$allZsh" ]; then
+    mkdir -p ~/.bash
+    mkdir -p ~/.zsh
+    shell_menu
 fi
