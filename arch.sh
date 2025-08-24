@@ -53,8 +53,8 @@ trash-cli unzip wget zip zsh
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 if ! command -v paru > /dev/null 2>&1; then
-    if git clone https://aur.archlinux.org/paru.git "$HOME/git/paru"; then
-        if cd "$HOME/git/paru"; then
+    if git clone https://aur.archlinux.org/paru-bin.git "$HOME/git/paru-bin"; then
+        if cd "$HOME/git/paru-bin"; then
             makepkg -si --noconfirm --needed &&\
             mkdir -pv ~/.config/paru/ &&\
             printf "[options]\nSkipReview\n" > ~/.config/paru/paru.conf
