@@ -1,4 +1,5 @@
 #!/bin/sh
+cd "$(dirname $(realpath $0))" && cd ../ && gitpath = "$(pwd)" && cd "$(realpath $0)"
 
 allBash=
 allZsh=
@@ -23,22 +24,22 @@ rm_link_or_mv_bak() {
 
 bash_rc() {
     rm_link_or_mv_bak ~/.bashrc
-    ln -sv ../.bashrc ~/.bashrc
+    ln -sv "$gitpath/.bashrc" ~/.bashrc
 }
 
 bash_aliases() {
     rm_link_or_mv_bak ~/.bash/aliases
-    ln -sv ../.bash/aliases ~/.bash/aliases
+    ln -sv "$gitpath/.bash/aliases" ~/.bash/aliases
 }
 
 bash_functions() {
     rm_link_or_mv_bak ~/.bash/functions
-    ln -sv ../.bash/functions ~/.bash/functions
+    ln -sv "$gitpath/.bash/functions" ~/.bash/functions
 }
 
 bash_prompt() {
     rm_link_or_mv_bak ~/.bash/prompt
-    ln -sv ../.bash/prompt ~/.bash/prompt
+    ln -sv "$gitpath/.bash/prompt" ~/.bash/prompt
 }
 
 all_bash()
@@ -52,22 +53,22 @@ all_bash()
 
 zsh_rc() {
     rm_link_or_mv_bak ~/.zshrc
-    ln -sv ../.zshrc ~/.zshrc
+    ln -sv "$gitpath/.zshrc" ~/.zshrc
 }
 
 zsh_aliases() {
     rm_link_or_mv_bak ~/.zsh/aliases
-    ln -sv ../.zsh/aliases ~/.zsh/aliases
+    ln -sv "$gitpath/.zsh/aliases" ~/.zsh/aliases
 }
 
 zsh_functions() {
     rm_link_or_mv_bak ~/.zsh/functions
-    ln -sv ../.zsh/functions ~/.zsh/functions
+    ln -sv "$gitpath/.zsh/functions" ~/.zsh/functions
 }
 
 zsh_prompt() {
     rm_link_or_mv_bak ~/.zsh/prompt
-    ln -sv ../.zsh/prompt ~/.zsh/prompt
+    ln -sv "$gitpath/.zsh/prompt" ~/.zsh/prompt
 }
 
 all_zsh()
