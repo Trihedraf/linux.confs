@@ -1,29 +1,14 @@
 #!/bin/sh
 
-install=
-while getopts ih? name
-do
-    case $name in
-        i)      install=1;;
-        h|?)    printf "Usage: %s: [OPTION]\n" "$0"
-            printf "\-h, -?  This help\n"
-            printf "\-i      Install DevilutionX.desktop\n"
-        exit 2;;
-    esac
-done
-shift $((OPTIND - 1))
-
-
-devilutionx_desktop()
-{
-    mkdir -p ~/.local/share/applications
-    [ ! -f ~/.local/share/applications/devilutionx.desktop ] || mv -v ~/.local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop.bak
-    cp -v .local/share/applications/devilutionx.desktop ~/.local/share/applications/devilutionx.desktop
-    [ ! -f ~/.local/share/icons/devilutionx.png ] || mv -v ~/.local/share/icons/devilutionx.png ~/.local/share/icons/devilutionx.png.bak
-    cp -v .local/share/icons/devilutionx.png ~/.local/share/icons/devilutionx.png
-    printf "DevilutionX.desktop installed\n"
+lnHomeConf() {
+    dir=$1
+    file=$2
+    mkdir -p "$dir"
+    [ ! -L "$dir/$file" ] || rm -v "$dir/$file"
+    [ ! -f "$dir/$file" ] || mv -v "$dir/$file" "$dir/$file.bak"
+    ln -sv "$GITPATH/$file" "$dir/$file"
 }
 
-if [ -n "$install" ]; then
-    devilutionx_desktop
-fi
+lnHomeConf $HOME/.local/share/applications devilutionx.desktop
+lnHomeConf $HOME/.local/share/icons devilutionx.png
+printf "DevilutionX.desktop installed\n"
