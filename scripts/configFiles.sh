@@ -29,13 +29,13 @@ lnHomeConf() {
     ln -sv "$GITPATH/$file" "$dir/$file"
 }
 
-lnEtcConf() {
+cpEtcConf() {
     dir=$1
     file=$2
     sudo mkdir -p "$dir"
     sudo [ ! -L "$dir/$file" ] || sudo rm -v "$dir/$file"
     sudo [ ! -f "$dir/$file" ] || sudo mv -v "$dir/$file" "$dir/$file.bak"
-    sudo ln -sv "$GITPATH/$dir/$file" "$dir/$file"
+    sudo cp -v "$GITPATH$dir/$file" "$dir/$file"
 }
 
 
@@ -78,7 +78,7 @@ fi
 
 sftp_config()
 {
-    lnEtcConf "/etc/ssh/sshd_config.d" "sftp.conf"
+    cpEtcConf "/etc/ssh/sshd_config.d" "sftp.conf"
     if systemctl --no-legend --all list-units ssh* | grep sshd.service ; then
         sudo systemctl reload sshd
         elif systemctl --no-legend --all list-units ssh* | grep ssh.service ; then
@@ -89,7 +89,7 @@ sftp_config()
 
 sudo_config()
 {
-    lnEtcConf "/etc/sudoers.d" "wheel"
+    cpEtcConf "/etc/sudoers.d" "wheel"
     printf "sudo config has been installed.\n"
 }
 
