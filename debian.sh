@@ -1,5 +1,4 @@
 #!/bin/bash
-
 optList=$(getopt -o d:t:z:h --long docker:,tailscale:,zfs:,help -n 'debian.sh' -- "$@")
 eval set -- "$optList"
 

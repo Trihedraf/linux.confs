@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 optList=$(getopt -o e:g:h --long etc:,gui:,help -n 'arch.sh' -- "$@")
 eval set -- "$optList"
 
