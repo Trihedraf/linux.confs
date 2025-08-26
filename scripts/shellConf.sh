@@ -1,21 +1,22 @@
 #!/bin/sh
-cd "$(dirname $(realpath $0))" && cd ../ && gitpath="$(pwd)" && cd "$(dirname $(realpath $0))"
+GITPATH=$(cd $(dirname $(realpath "$0")) && cd ../ && pwd)
 
-lnConf() {
-    file=$1
-    [ ! -L "$HOME/$file" ] || rm -v "$HOME/$file"
-    [ ! -f "$HOME/$file" ] || mv -v "$HOME/$file" "$HOME/$file.bak"
-    ln -sv "$gitpath/$file" "$HOME/$file"
+lnHomeConf() {
+    DIR=$1
+    FILE=$2
+    mkDIR -p "$DIR"
+    [ ! -L "$DIR/$FILE" ] || rm -v "$DIR/$FILE"
+    [ ! -f "$DIR/$FILE" ] || mv -v "$DIR/$FILE" "$DIR/$FILE.bak"
+    ln -sv "$GITPATH/$FILE" "$DIR/$FILE"
 }
 
-mkdir -p "$HOME/.bash" "$HOME/.zsh"
-lnConf .bashrc
-lnConf .bash/aliases
-lnConf .bash/functions
-lnConf .bash/prompt
-lnConf .zshrc
-lnConf .zsh/aliases
-lnConf .zsh/functions
-lnConf .zsh/prompt
+lnHomeConf $HOME .bashrc
+lnHomeConf $HOME/.bash aliases
+lnHomeConf $HOME/.bash functions
+lnHomeConf $HOME/.bash prompt
+lnHomeConf $HOME .zshrc
+lnHomeConf $HOME/.zsh aliases
+lnHomeConf $HOME/.zsh functions
+lnHomeConf $HOME/.zsh prompt
 
 printf "All bash and zsh files have been linked. Please run . ~/.bashrc for bash or. ~/.zshrc for zsh or logout and back in to enable the configs.\n"
