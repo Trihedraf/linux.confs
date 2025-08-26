@@ -1,5 +1,5 @@
 #!/bin/sh
-GITPATH=$(cd $(dirname $(realpath "$0")) && cd ../ && pwd)
+GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
 desktopConfigs=
 etcConfigs=
@@ -41,14 +41,14 @@ lnEtcConf() {
 
 konsole_config()
 {
-    lnHomeConf $HOME/.local/share/konsole tri.profile
-    lnHomeConf $HOME/.config konsolerc
+    lnHomeConf "$HOME/.local/share/konsole" "tri.profile"
+    lnHomeConf "$HOME/.config konsolerc"
     printf "Konsole config has been installed.\n"
 }
 
 mango_config()
 {
-    lnHomeConf $HOME/.config/MangoHud MangoHud.conf
+    lnHomeConf "$HOME/.config/MangoHud" "MangoHud.conf"
     printf "MangoHud config has been installed.\n"
 }
 
@@ -60,13 +60,13 @@ fi
 
 fastfetch_config()
 {
-    lnHomeConf $HOME/.config/fastfetch config.jsonc
+    lnHomeConf "$HOME/.config/fastfetch" "config.jsonc"
     printf "fastfetch config has been installed.\n"
 }
 
 micro_config()
 {
-    lnHomeConf $HOME/.config/micro settings.json
+    lnHomeConf "$HOME/.config/micro" "settings.json"
     printf "micro config has been installed.\n"
 }
 
@@ -78,7 +78,7 @@ fi
 
 sftp_config()
 {
-    lnEtcConf /etc/ssh/sshd_config.d sftp.conf
+    lnEtcConf "/etc/ssh/sshd_config.d" "sftp.conf"
     if systemctl --no-legend --all list-units ssh* | grep sshd.service ; then
         sudo systemctl reload sshd
         elif systemctl --no-legend --all list-units ssh* | grep ssh.service ; then
@@ -89,7 +89,7 @@ sftp_config()
 
 sudo_config()
 {
-    lnEtcConf /etc/sudoers.d wheel
+    lnEtcConf "/etc/sudoers.d" "wheel"
     printf "sudo config has been installed.\n"
 }
 
