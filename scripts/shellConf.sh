@@ -19,4 +19,4 @@ lnHomeConf $HOME/.zsh aliases
 lnHomeConf $HOME/.zsh functions
 lnHomeConf $HOME/.zsh prompt
 
-printf "All bash and zsh files have been linked. Please run . ~/.bashrc for bash or. ~/.zshrc for zsh or logout and back in to enable the configs.\n"
+printf "All bash and zsh files have been linked. Please run . ~/.bashrc for bash or . ~/.zshrc for zsh or logout and back in to enable the configs.\n"

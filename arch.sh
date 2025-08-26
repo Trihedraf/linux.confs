@@ -78,7 +78,7 @@ if ! command -v paru > /dev/null 2>&1; then
     fi
 fi
 
-paru -S multitail
+paru -S --noconfirm --needed multitail
 
 if [ "$guiInstall" = 1 ]; then
     paru -S --noconfirm --needed alacritty brave-bin discord github-desktop \
@@ -88,7 +88,7 @@ if [ "$guiInstall" = 1 ]; then
     lib32-gtk3 libldap lib32-libldap libpulse lib32-libpulse libva lib32-libva \
     libxcomposite lib32-libxcomposite libxinerama lib32-libxinerama openal \
     lib32-openal ocl-icd lib32-ocl-icd sdl2 lib32-sdl2 v4l-utils \
-    lib32-v4l-utils vulkan-icd-loader lib32-vulkan-icd-loader
+    lib32-v4l-utils vulkan-icd-loader lib32-vulkan-icd-loader xclip wl-clipboard
 fi
 
 echo "run 'chsh -s /bin/zsh' to set your shell to zsh"
