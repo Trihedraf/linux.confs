@@ -2,16 +2,19 @@
 GITPATH=$(cd $(dirname $(realpath "$0")) && cd ../ && pwd)
 
 desktopConfigs=
+etcConfigs=
 terminalConfigs=
-while getopts dth? name
+while getopts deth? name
 do
     case $name in
         d)      desktopConfigs=1;;
+        e)      etcConfigs=1;;
         t)      terminalConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
-            printf "\-d      Install all Desktop Configs\n"
-            printf "\-t      Install all Terminal Configs\n"
+            printf "\-d      Install Desktop Configs\n"
+            printf "\-e      Install /etc Configs \n"
+            printf "\-t      Install Terminal Configs\n"
         exit 2;;
     esac
 done
@@ -49,6 +52,12 @@ mango_config()
     printf "MangoHud config has been installed.\n"
 }
 
+if [ -n "$desktopConfigs" ]; then
+    konsole_config
+    mango_config
+fi
+
+
 fastfetch_config()
 {
     lnHomeConf $HOME/.config/fastfetch config.jsonc
@@ -60,6 +69,12 @@ micro_config()
     lnHomeConf $HOME/.config/micro settings.json
     printf "micro config has been installed.\n"
 }
+
+if [ -n "$terminalConfigs" ]; then
+    fastfetch_config
+    micro_config
+fi
+
 
 sftp_config()
 {
@@ -78,14 +93,7 @@ sudo_config()
     printf "sudo config has been installed.\n"
 }
 
-if [ -n "$desktopConfigs" ]; then
-    konsole_config
-    mango_config
-fi
-
-if [ -n "$terminalConfigs" ]; then
-    fastfetch_config
-    micro_config
+if [ -n "$etcConfigs" ]; then
     sftp_config
     sudo_config
 fi
