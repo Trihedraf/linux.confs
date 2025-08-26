@@ -67,7 +67,7 @@ lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 ncurses \
 lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tar tree tldr \
 trash-cli unzip wget zip zsh
 
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
 
 if ! command -v paru > /dev/null 2>&1; then
     git clone https://aur.archlinux.org/paru-bin.git "$HOME/git/paru-bin"

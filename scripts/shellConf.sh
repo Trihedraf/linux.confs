@@ -4,7 +4,7 @@ GITPATH=$(cd $(dirname $(realpath "$0")) && cd ../ && pwd)
 lnHomeConf() {
     DIR=$1
     FILE=$2
-    mkdir -p "$DIR"
+    mkdir -pv "$DIR"
     [ ! -L "$DIR/$FILE" ] || rm -v "$DIR/$FILE"
     [ ! -f "$DIR/$FILE" ] || mv -v "$DIR/$FILE" "$DIR/$FILE.bak"
     ln -sv "$GITPATH/$FILE" "$DIR/$FILE"
