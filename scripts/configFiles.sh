@@ -1,4 +1,5 @@
 #!/bin/sh
+GITPATH=$(cd $(dirname $(realpath "$0")) && cd ../ && pwd)
 
 desktopConfigs=
 terminalConfigs=
@@ -16,47 +17,53 @@ do
 done
 shift $((OPTIND - 1))
 
+lnHomeConf() {
+    dir=$1
+    file=$2
+    mkdir -p "$dir"
+    [ ! -L "$dir/$file" ] || rm -v "$dir/$file"
+    [ ! -f "$dir/$file" ] || mv -v "$dir/$file" "$dir/$file.bak"
+    ln -sv "$GITPATH/$file" "$dir/$file"
+}
+
+lnEtcConf() {
+    dir=$1
+    file=$2
+    sudo mkdir -p "$dir"
+    sudo [ ! -L "$dir/$file" ] || sudo rm -v "$dir/$file"
+    sudo [ ! -f "$dir/$file" ] || sudo mv -v "$dir/$file" "$dir/$file.bak"
+    sudo ln -sv "$GITPATH/$dir/$file" "$dir/$file"
+}
+
+
 konsole_config()
 {
-    mkdir -p ~/.local/share/konsole
-    [ ! -f ~/.local/share/konsole/tri.profile ] || mv -v ~/.local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile.bak
-    cp -v ../.local/share/konsole/tri.profile ~/.local/share/konsole/tri.profile
-    printf "Konsole profile has been installed.\n"
-    mkdir -p ~/.config
-    [ ! -f ~/.config/konsolerc ] || mv -v ~/.config/konsolerc ~/.config/konsolerc.bak
-    cp -v ../.config/konsolerc ~/.config/konsolerc
+    lnHomeConf $HOME/.local/share/konsole tri.profile
+    lnHomeConf $HOME/.config konsolerc
     printf "Konsole config has been installed.\n"
 }
 
 mango_config()
 {
-    mkdir -p ~/.config/MangoHud
-    [ ! -f ~/.config/MangoHud/MangoHud.conf ] || mv -v ~/.config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf.bak
-    cp -v ../.config/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
+    lnHomeConf $HOME/.config/MangoHud MangoHud.conf
     printf "MangoHud config has been installed.\n"
 }
 
 fastfetch_config()
 {
-    mkdir -p ~/.config/fastfetch
-    [ ! -f ~/.config/fastfetch/config.jsonc ] || mv -v ~/.config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc.bak
-    cp -v ../.config/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
+    lnHomeConf $HOME/.config/fastfetch config.jsonc
     printf "fastfetch config has been installed.\n"
 }
 
 micro_config()
 {
-    mkdir -p ~/.config/micro
-    [ ! -f ~/.config/micro/settings.json ] || mv -v ~/.config/micro/settings.json ~/.config/micro/settings.json.bak
-    cp -v ../.config/micro/settings.json ~/.config/micro/settings.json
+    lnHomeConf $HOME/.config/micro settings.json
     printf "micro config has been installed.\n"
 }
 
 sftp_config()
 {
-    sudo mkdir -p /etc/ssh/sshd_config.d
-    [ ! -f /etc/ssh/sshd_config.d/sftp.conf ] || sudo mv -v /etc/ssh/sshd_config.d/sftp.conf /etc/ssh/sshd_config.d/sftp.conf.bak
-    sudo cp -v ../etc/ssh/sshd_config.d/sftp.conf /etc/ssh/sshd_config.d/sftp.conf
+    lnEtcConf /etc/ssh/sshd_config.d sftp.conf
     if systemctl --no-legend --all list-units ssh* | grep sshd.service ; then
         sudo systemctl reload sshd
         elif systemctl --no-legend --all list-units ssh* | grep ssh.service ; then
@@ -67,9 +74,7 @@ sftp_config()
 
 sudo_config()
 {
-    sudo mkdir -p /etc/sudoers.d
-    [ ! -f /etc/sudoers.d/wheel ] || sudo mv -v /etc/sudoers.d/wheel /etc/sudoers.d/wheel.bak
-    sudo cp -v ../etc/sudoers.d/wheel /etc/sudoers.d/wheel
+    lnEtcConf /etc/sudoers.d wheel
     printf "sudo config has been installed.\n"
 }
 
