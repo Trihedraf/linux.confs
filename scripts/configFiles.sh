@@ -52,7 +52,7 @@ mango_config()
     printf "MangoHud config has been installed.\n"
 }
 
-if [ -n "$desktopConfigs" ]; then
+if [ "$desktopConfigs" = 1 ]; then
     konsole_config
     mango_config
 fi
@@ -70,7 +70,7 @@ micro_config()
     printf "micro config has been installed.\n"
 }
 
-if [ -n "$terminalConfigs" ]; then
+if [ "$terminalConfigs" = 1 ]; then
     fastfetch_config
     micro_config
 fi
@@ -93,7 +93,7 @@ sudo_config()
     printf "sudo config has been installed.\n"
 }
 
-if [ -n "$etcConfigs" ]; then
+if [ "$etcConfigs" = 1 ]; then
     sftp_config
     sudo_config
 fi
