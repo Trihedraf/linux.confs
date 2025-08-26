@@ -78,51 +78,6 @@ sudo_config()
     printf "sudo config has been installed.\n"
 }
 
-config_menu()
-{
-    while true; do
-        # Display the menu
-        clear
-        printf "\n  Please select an option:\n\n"
-        printf "    1. Install Konsole config\n"
-        printf "    2. Install MangoHud config\n"
-        printf "    3. Install fastfetch config\n"
-        printf "    4. Install micro config\n"
-        printf "    5. Install sftp config\n"
-        printf "    6. Install sudo config\n"
-        printf "    0. Return to main menu\n"
-        printf "\n  Enter your choice (0-6): "
-        read -r config_choice
-        printf "\n\n"
-        
-        case "$config_choice" in
-            1)
-                konsole_config
-            ;;
-            2)
-                mango_config
-            ;;
-            3)
-                fastfetch_config
-            ;;
-            4)
-                micro_config
-            ;;
-            5)
-                sftp_config
-            ;;
-            6)
-                sudo_config
-            ;;
-            0)
-                break
-            ;;
-        esac
-        printf "\n  Press enter to continue..."
-        read -r config_choice
-    done
-}
-
 if [ -n "$desktopConfigs" ]; then
     konsole_config
     mango_config
