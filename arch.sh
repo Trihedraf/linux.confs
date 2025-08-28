@@ -64,8 +64,8 @@ fi
 sudo pacman -S --noconfirm --needed base-devel cmake docker docker-buildx \
 docker-compose fastfetch flatpak giflib lib32-giflib github-cli gnutls \
 lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 ncurses \
-lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tar tree tldr \
-trash-cli unzip wget zip zsh
+lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tailscale tar \
+tree tldr trash-cli unzip wget zip zsh
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
 
@@ -76,17 +76,16 @@ if ! command -v paru > /dev/null 2>&1; then
     fi
 fi
 
-paru -S --noconfirm --needed multitail
-
 if [ "$guiInstall" = 1 ]; then
-    paru -S --noconfirm --needed alacritty brave-bin discord github-desktop \
-    libreoffice-fresh steam visual-studio-code-bin alsa-lib lib32-alsa-lib \
+    sudo pacman -S --noconfirm --needed alacritty code discord \
+    libreoffice-fresh steam alsa-lib lib32-alsa-lib \
     alsa-utils alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib \
     gst-plugins-base-libs lib32-gst-plugins-base-libs gtk2 gtk3 lib32-gtk2 \
     lib32-gtk3 libldap lib32-libldap libpulse lib32-libpulse libva lib32-libva \
     libxcomposite lib32-libxcomposite libxinerama lib32-libxinerama openal \
     lib32-openal ocl-icd lib32-ocl-icd sdl2 lib32-sdl2 v4l-utils \
     lib32-v4l-utils vulkan-icd-loader lib32-vulkan-icd-loader xclip wl-clipboard
+    paru -S --noconfirm --needed brave-bin github-desktop
 fi
 
 echo "run 'chsh -s /bin/zsh' to set your shell to zsh"
