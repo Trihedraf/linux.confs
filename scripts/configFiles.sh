@@ -1,19 +1,22 @@
 #!/bin/sh
 GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
-desktopConfigs=
-etcConfigs=
-terminalConfigs=
-while getopts deth? name
+archConfigs=0
+guiConfigs=0
+etcConfigs=0
+terminalConfigs=0
+while getopts aegth? name
 do
     case $name in
-        d)      desktopConfigs=1;;
+        a)      archConfigs=1;;
+        d)      guiConfigs=1;;
         e)      etcConfigs=1;;
         t)      terminalConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
-            printf "\-d      Install Desktop Configs\n"
+            printf "\-a      Install archlinux Configs\n"
             printf "\-e      Install /etc Configs \n"
+            printf "\-g      Install gui Configs\n"
             printf "\-t      Install Terminal Configs\n"
         exit 2;;
     esac
@@ -52,7 +55,7 @@ mango_config()
     printf "MangoHud config has been installed.\n"
 }
 
-if [ "$desktopConfigs" = 1 ]; then
+if [ "$guiConfigs" = 1 ]; then
     konsole_config
     mango_config
 fi
@@ -96,4 +99,15 @@ sudo_config()
 if [ "$etcConfigs" = 1 ]; then
     sftp_config
     sudo_config
+fi
+
+
+paru_config()
+{
+    lnHomeConf "$HOME/.config/paru" "paru.conf"
+    printf "paru config has been installed.\n"
+}
+
+if [ "$archConfigs" = 1 ]; then
+    paru_config
 fi

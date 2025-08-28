@@ -44,14 +44,14 @@ done
 sudo pacman -S --noconfirm --needed git
 
 if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
-    "$HOME/git/linux.confs/scripts/configFiles.sh" -t || printf "terminal app configurations failed"
+    "$HOME/git/linux.confs/scripts/configFiles.sh" -at || printf "terminal app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
     if [ "$etcInstall" = 1 ]; then
         "$HOME/git/linux.confs/scripts/configFiles.sh" -e || printf "/etc configurations failed"
     fi
     if [ "$guiInstall" = 1 ]; then
         "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
-        "$HOME/git/linux.confs/scripts/configFiles.sh" -d || printf "desktop app configurations failed"
+        "$HOME/git/linux.confs/scripts/configFiles.sh" -g || printf "desktop app configurations failed"
     fi
     if cd "$HOME/git/linux.confs"; then
         if sudo cp -rv ./archlinux/etc/* /etc/; then
@@ -72,9 +72,7 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 if ! command -v paru > /dev/null 2>&1; then
     git clone https://aur.archlinux.org/paru-bin.git "$HOME/git/paru-bin"
     if cd "$HOME/git/paru-bin"; then
-        makepkg -si --noconfirm --needed &&\
-        mkdir -pv ~/.config/paru/ &&\
-        printf "[options]\nSkipReview\n" > ~/.config/paru/paru.conf
+        makepkg -si --noconfirm --needed
     fi
 fi
 
