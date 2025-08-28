@@ -3,14 +3,12 @@ GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
 archConfigs=0
 guiConfigs=0
-etcConfigs=0
 terminalConfigs=0
-while getopts aegth? name
+while getopts agth? name
 do
     case $name in
         a)      archConfigs=1;;
-        d)      guiConfigs=1;;
-        e)      etcConfigs=1;;
+        g)      guiConfigs=1;;
         t)      terminalConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
@@ -73,12 +71,6 @@ micro_config()
     printf "micro config has been installed.\n"
 }
 
-if [ "$terminalConfigs" = 1 ]; then
-    fastfetch_config
-    micro_config
-fi
-
-
 sftp_config()
 {
     cpEtcConf "/etc/ssh/sshd_config.d" "sftp.conf"
@@ -96,11 +88,12 @@ sudo_config()
     printf "sudo config has been installed.\n"
 }
 
-if [ "$etcConfigs" = 1 ]; then
+if [ "$terminalConfigs" = 1 ]; then
+    fastfetch_config
+    micro_config
     sftp_config
     sudo_config
 fi
-
 
 paru_config()
 {

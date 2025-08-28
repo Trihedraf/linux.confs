@@ -1,22 +1,11 @@
 #!/bin/bash
-optList=$(getopt -o e:g:h --long etc:,gui:,help -n 'arch.sh' -- "$@")
+optList=$(getopt -o g:h --long ,gui:,help -n 'arch.sh' -- "$@")
 eval set -- "$optList"
 
-etcInstall=1
 guiInstall=1
 
 while true; do
     case "$1" in
-        -e | --etc)
-            if [ "$2" = "ON" ]; then
-                etcInstall="1"
-                elif [ "$2" = "OFF" ]; then
-                etcInstall="0"
-            else
-                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
-            fi
-            shift 2
-        ;;
         -g | --gui)
             if [ "$2" = "ON" ]; then
                 guiInstall="1"
@@ -31,7 +20,6 @@ while true; do
             printf "Usage: %s: [OPTION]\n" "$0"
             printf "    -h,--help           This help\n\n"
             printf "    Valid options for the following flags are ON and OFF.       Default\n"
-            printf "    -e,--etc            Enable or Disable /etc configs install. ON\n"
             printf "    -g,--gui            Enable or Disable GUI apps install.     ON\n"
             exit 2
         ;;
@@ -46,9 +34,6 @@ sudo pacman -S --noconfirm --needed git
 if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
     "$HOME/git/linux.confs/scripts/configFiles.sh" -at || printf "terminal app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
-    if [ "$etcInstall" = 1 ]; then
-        "$HOME/git/linux.confs/scripts/configFiles.sh" -e || printf "/etc configurations failed"
-    fi
     if [ "$guiInstall" = 1 ]; then
         "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
         "$HOME/git/linux.confs/scripts/configFiles.sh" -g || printf "desktop app configurations failed"
