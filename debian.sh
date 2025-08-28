@@ -1,33 +1,11 @@
 #!/bin/bash
-optList=$(getopt -o d:t:z:h --long docker:,tailscale:,zfs:,help -n 'debian.sh' -- "$@")
+optList=$(getopt -o z:h --long zfs:,help -n 'debian.sh' -- "$@")
 eval set -- "$optList"
 
-dockerInstall=1
-tailscaleInstall=1
 zfsInstall=0
 
 while true; do
     case "$1" in
-        -d | --docker)
-            if [ "$2" = "ON" ]; then
-                dockerInstall="1"
-                elif [ "$2" = "OFF" ]; then
-                dockerInstall="0"
-            else
-                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
-            fi
-            shift 2
-        ;;
-        -t | --tailscale)
-            if [ "$2" = "ON" ]; then
-                tailscaleInstall="1"
-                elif [ "$2" = "OFF" ]; then
-                tailscaleInstall="0"
-            else
-                echo "Error: Invalid option '$2'. Valid options are 'ON' and 'OFF'" >&2
-            fi
-            shift 2
-        ;;
         -z | --zfs)
             if [ "$2" = "ON" ]; then
                 zfsInstall="1"
@@ -41,10 +19,8 @@ while true; do
         -h | --help)
             printf "Usage: %s: [OPTION]\n" "$0"
             printf "    -h,--help           This help\n\n"
-            printf "    Valid options for the following flags are ON and OFF.   Default\n"
-            printf "    -d,--docker      Enable or Disable Docker install.      ON\n"
-            printf "    -t,--tailscale   Enable or Disable Tailscale install.   ON\n"
-            printf "    -z,--zfs         Enable or Disable ZFS install.         OFF\n"
+            printf "    Valid options for the following flags are ON and OFF.       Default\n"
+            printf "    -z,--zfs            Enable or Disable ZFS install.          OFF\n"
             exit 2
         ;;
         *)
@@ -62,22 +38,15 @@ else
     exit
 fi
 
-if [ "$tailscaleInstall" = 1 ]; then
-    if ! command -v tailscale > /dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh; fi
+if ! command -v tailscale > /dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh; fi
+
+if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
+
+if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
+    "$HOME/git/linux.confs/scripts/configFiles.sh" -t || printf "terminal app configurations failed"
+    "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
 fi
 
-if [ "$dockerInstall" = 1 ]; then
-    if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
-fi
-
-if [ ! -d "$HOME/git/linux.confs" ] ; then
-    git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
-fi
-
-if cd "$HOME/git/linux.confs/scripts"; then
-    ./configFiles.sh -t || printf "terminal app configurations failed"
-    ./shellConf.sh -bz || printf "shell configuration failed"
-fi
 if cd "$HOME/git/linux.confs"; then
     if sudo cp -rv ./debian-trixie/etc/* /etc/; then
         sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
