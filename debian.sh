@@ -32,6 +32,7 @@ done
 sudo sh -c 'echo "" > /etc/motd'
 
 if sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cockpit curl git ethtool iperf3 micro net-tools pipx resolvconf rsync samba screen shellcheck wget zsh; then
+sudo dpkg --add-architecture i386
     sudo resolvconf -u
     sudo systemctl enable cockpit.socket
 else
