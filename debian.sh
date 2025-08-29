@@ -43,6 +43,7 @@ if ! command -v tailscale > /dev/null 2>&1; then curl -fsSL https://tailscale.co
 if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && sudo usermod -aG docker "$(whoami)"
 
 if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
+    "$HOME/git/linux.confs/scripts/spfInstall.sh"
     "$HOME/git/linux.confs/scripts/configFiles.sh" -t || printf "terminal app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
 fi
