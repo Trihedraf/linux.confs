@@ -31,8 +31,10 @@ done
 
 sudo sh -c 'echo "" > /etc/motd'
 
+sudo apt-get install nala
+
 sudo dpkg --add-architecture i386
-if sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential \
+if sudo DEBIAN_FRONTEND=noninteractive nala install -y build-essential \
 cmake cockpit curl fastfetch flatpak git gh ethtool iperf3 libz-mingw-w64-dev \
 micro mingw-w64 mingw-w64-tools multitail net-tools pipx resolvconf rsync \
 samba screen shellcheck smpq tar trash-cli tree wget unzip zip zsh; then
@@ -57,9 +59,9 @@ if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; t
         if sudo cp -rv ./debian-trixie/etc/* /etc/; then
             sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
             sudo systemctl enable udpgroforwarding.service
-            sudo rm /etc/apt/sources.list && sudo apt-get update
+            sudo rm /etc/apt/sources.list && sudo nala update
             if [ "$zfsInstall" = 1 ]; then
-                sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-headers-amd64 zfsutils-linux &&\
+                sudo DEBIAN_FRONTEND=noninteractive nala install -y linux-headers-amd64 zfsutils-linux &&\
                 sudo systemctl enable --now zfs-load-key.service &&\
                 sudo pipx install --global zfs-autobackup
                 git clone https://github.com/45drives/cockpit-zfs-manager.git "$HOME/git/cockpit-zfs" &&\
