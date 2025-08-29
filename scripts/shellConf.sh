@@ -11,12 +11,12 @@ lnHomeConf() {
 }
 
 lnHomeConf "$HOME" .bashrc
-lnHomeConf "$HOME/.bash" aliases
-lnHomeConf "$HOME/.bash" functions
-lnHomeConf "$HOME/.bash" prompt
+lnHomeConf "$HOME" .bash/aliases
+lnHomeConf "$HOME" .bash/functions
+lnHomeConf "$HOME" .bash/prompt
 lnHomeConf "$HOME" .zshrc
-lnHomeConf "$HOME/.zsh" aliases
-lnHomeConf "$HOME/.zsh" functions
-lnHomeConf "$HOME/.zsh" prompt
+lnHomeConf "$HOME" .zsh/aliases
+lnHomeConf "$HOME" .zsh/functions
+lnHomeConf "$HOME" .zsh/prompt
 
 printf "All bash and zsh files have been linked. Please run . ~/.bashrc for bash or . ~/.zshrc for zsh or logout and back in to enable the configs.\n"
