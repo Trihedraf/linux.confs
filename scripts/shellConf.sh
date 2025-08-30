@@ -2,13 +2,13 @@
 GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
 lnHomeConf() {
-    DIR=$1
+    HOMEDIR=$1
     SUBDIR=$2
     FILE=$3
-    mkdir -pv "$DIR"
-    [ ! -L "$DIR/$SUBDIR$FILE" ] || rm -v "$DIR/$SUBDIR$FILE"
-    [ ! -f "$DIR/$SUBDIR$FILE" ] || mv -v "$DIR/$SUBDIR$FILE" "$DIR/$SUBDIR$FILE.bak"
-    ln -sv "$GITPATH/$SUBDIR$FILE" "$DIR/$SUBDIR$FILE"
+    mkdir -pv "$HOMEDIR/$SUBDIR"
+    [ ! -L "$HOMEDIR/$SUBDIR$FILE" ] || rm -v "$HOMEDIR/$SUBDIR$FILE"
+    [ ! -f "$HOMEDIR/$SUBDIR$FILE" ] || mv -v "$HOMEDIR/$SUBDIR$FILE" "$HOMEDIR/$SUBDIR$FILE.bak"
+    ln -sv "$GITPATH/$SUBDIR$FILE" "$HOMEDIR/$SUBDIR$FILE"
 }
 
 lnHomeConf "$HOME" "" .bashrc
