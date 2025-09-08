@@ -6,6 +6,8 @@ HISTFILESIZE=1000000
 
 #Shell Options
 shopt -s autocd
+shopt -s dotglob
+shopt -s globstar
 shopt -s histappend
 
 if ! shopt -oq posix; then
