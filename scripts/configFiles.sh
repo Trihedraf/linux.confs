@@ -43,7 +43,7 @@ cpEtcConf() {
 konsole_config()
 {
     lnHomeConf "$HOME/.local/share/konsole" "tri.profile"
-    lnHomeConf "$HOME/.config konsolerc"
+    lnHomeConf "$HOME/.config" "konsolerc"
     printf "Konsole config has been installed.\n"
 }
 
