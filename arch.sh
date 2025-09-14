@@ -29,7 +29,7 @@ while true; do
     esac
 done
 
-sudo pacman -S --noconfirm --needed git
+sudo pacman -S --noconfirm --needed git wget
 
 if [ -d "$HOME/git/linux.confs" ]; then
     cd "$HOME/git/linux.confs"
@@ -57,7 +57,7 @@ sudo pacman -S --noconfirm --needed base-devel cmake docker docker-buildx \
 docker-compose fastfetch flatpak giflib lib32-giflib github-cli gnutls \
 lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 ncurses \
 lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tailscale tar \
-tree tldr trash-cli unzip wget zip zsh
+tree tldr trash-cli unzip zip zsh
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
 
