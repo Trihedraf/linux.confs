@@ -29,7 +29,7 @@ while true; do
     esac
 done
 
-sudo pacman -S --noconfirm --needed git wget
+sudo pacman -Syy --noconfirm --needed git wget
 
 if [ -d "$HOME/git/linux.confs" ]; then
     cd "$HOME/git/linux.confs"
@@ -53,7 +53,7 @@ if [ -d "$HOME/git/linux.confs" ]; then
     fi
 fi
 
-sudo pacman -S --noconfirm --needed base-devel cmake docker docker-buildx \
+sudo pacman -Syy --noconfirm --needed base-devel cmake docker docker-buildx \
 docker-compose fastfetch flatpak giflib lib32-giflib github-cli gnutls \
 lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 ncurses \
 lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tailscale tar \
@@ -69,7 +69,7 @@ if ! command -v paru > /dev/null 2>&1; then
 fi
 
 if [ "$guiInstall" = 1 ]; then
-    sudo pacman -S --noconfirm --needed alacritty code discord \
+    sudo pacman -Syy --noconfirm --needed alacritty code discord \
     libreoffice-fresh steam alsa-lib lib32-alsa-lib \
     alsa-utils alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib \
     gst-plugins-base-libs lib32-gst-plugins-base-libs gtk2 gtk3 lib32-gtk2 \
