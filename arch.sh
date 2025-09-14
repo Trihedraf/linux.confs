@@ -31,7 +31,14 @@ done
 
 sudo pacman -S --noconfirm --needed git
 
-if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
+if [ -d "$HOME/git/linux.confs" ]; then
+    cd "$HOME/git/linux.confs"
+    git pull
+else 
+    git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
+fi
+
+if [ -d "$HOME/git/linux.confs" ]; then
     "$HOME/git/linux.confs/scripts/configFiles.sh" -at || printf "terminal app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
     if [ "$guiInstall" = 1 ]; then
