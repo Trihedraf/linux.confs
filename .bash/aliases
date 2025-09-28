@@ -5,7 +5,7 @@ alias grep='grep --color=auto'
 alias hg='_hg'
 alias l1='ls -A1 --color'
 alias lg='looking-glass-client -m 148 -f /dev/kvmfr0'
-alias ll='ls -lAh --g --full-time --color'
+alias ll='ls -lAh --full-time --color'
 alias jwtgen="_jwtgen"
 alias nas='ssh nas.lan'
 alias pa='ps -A | grep'
