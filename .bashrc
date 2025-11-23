@@ -26,15 +26,15 @@ fi
 export PATH="~/.local/bin:$PATH"
 
 if [ -f ~/.bash/aliases ]; then
-    . ~/.bash/aliases
+    . "$HOME/.bash/aliases"
 fi
 
 if [ -f ~/.bash/functions ]; then
-    . ~/.bash/functions
+    . "$HOME/.bash/functions"
 fi
 
 if [ -f ~/.bash/prompt ]; then
-    . ~/.bash/prompt
+    . "$HOME/.bash/prompt"
 fi
 
 #clear
