@@ -25,6 +25,17 @@ fi
 
 export PATH="~/.local/bin:$PATH"
 
+if [ -f "$HOME/.local/bin/micro" ];then
+    micro="$HOME/.local/bin/micro"
+elif [ -f /home/linuxbrew/.linuxbrew/bin/micro ]; then
+    micro=/home/linuxbrew/.linuxbrew/bin/micro
+fi
+
+export VISUAL=$micro
+export EDITOR=$micro
+export SUDO_EDITOR=$micro
+
+
 if [ -f ~/.bash/aliases ]; then
     . "$HOME/.bash/aliases"
 fi
