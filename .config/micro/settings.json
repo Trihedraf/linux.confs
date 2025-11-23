@@ -1,6 +1,7 @@
 {
     "clipboard": "terminal",
     "colorcolumn": 80,
+    "colorscheme": "monokai-dark",
     "diffgutter": true,
     "fakecursor": true,
     "hlsearch": true,
@@ -12,7 +13,6 @@
     "rmtrailingws": true,
     "saveundo": true,
     "scrollbar": true,
-    "status": true,
     "tabmovement": true,
     "tabstospaces": true
 }
