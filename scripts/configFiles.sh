@@ -13,7 +13,6 @@ do
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
             printf "\-a      Install archlinux Configs\n"
-            printf "\-e      Install /etc Configs \n"
             printf "\-g      Install gui Configs\n"
             printf "\-t      Install Terminal Configs\n"
         exit 2;;
