@@ -1,3 +1,8 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 #History Options
 #HISTTIMEFORMAT="%F %T "
 HISTCONTROL=ignoreboth
