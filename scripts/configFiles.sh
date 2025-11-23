@@ -21,12 +21,13 @@ done
 shift $((OPTIND - 1))
 
 lnHomeConf() {
-    dir=$1
-    file=$2
+    srcdir=$1
+    dir=$2
+    file=$3
     mkdir -p "$dir"
     [ ! -L "$dir/$file" ] || rm -v "$dir/$file"
     [ ! -f "$dir/$file" ] || mv -v "$dir/$file" "$dir/$file.bak"
-    ln -sv "$GITPATH/$file" "$dir/$file"
+    ln -sv "$srcdir/$file" "$dir/$file"
 }
 
 cpEtcConf() {
@@ -41,14 +42,14 @@ cpEtcConf() {
 
 konsole_config()
 {
-    lnHomeConf "$HOME/.local/share/konsole" "tri.profile"
-    lnHomeConf "$HOME/.config" "konsolerc"
+    lnHomeConf "$GITPATH/.local/share/konsole" "$HOME/.local/share/konsole" "tri.profile"
+    lnHomeConf "$GITPATH/.config" "$HOME/.config" "konsolerc"
     printf "Konsole config has been installed.\n"
 }
 
 mango_config()
 {
-    lnHomeConf "$HOME/.config/MangoHud" "MangoHud.conf"
+    lnHomeConf "$GITPATH/.config/MangoHud" "$HOME/.config/MangoHud" "MangoHud.conf"
     printf "MangoHud config has been installed.\n"
 }
 
@@ -60,13 +61,13 @@ fi
 
 fastfetch_config()
 {
-    lnHomeConf "$HOME/.config/fastfetch" "config.jsonc"
+    lnHomeConf "$GITPATH/.config/fastfetch" "$HOME/.config/fastfetch" "config.jsonc"
     printf "fastfetch config has been installed.\n"
 }
 
 micro_config()
 {
-    lnHomeConf "$HOME/.config/micro" "settings.json"
+    lnHomeConf "$GITPATH/.config/micro" "$HOME/.config/micro" "settings.json"
     printf "micro config has been installed.\n"
 }
 
@@ -96,7 +97,7 @@ fi
 
 paru_config()
 {
-    lnHomeConf "$HOME/.config/paru" "paru.conf"
+    lnHomeConf "$GITPATH/.config/paru" "$HOME/.config/paru" "paru.conf"
     printf "paru config has been installed.\n"
 }
 
