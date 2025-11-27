@@ -50,4 +50,8 @@ fi
 #clear
 #fastfetch
 
-PROMPT_COMMAND=bash_prompt_command
+if [ $PWD == "/var$HOME" ]; then
+    cd $HOME
+fi
+
+PROMPT_COMMAND=bashPromptCommand
