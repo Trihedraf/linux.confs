@@ -3,22 +3,41 @@ if [ -f "$HOME/.bash/colors" ]; then
     . "$HOME/.bash/colors"
 fi
 
-bash_prompt_command() {
- case $TERM in
- xterm*|rxvt*)
-   local TITLEBAR='\[\033]0;\u:${NEW_PWD}\007\]'
-    ;;
-  *)
-   local TITLEBAR=""
-    ;;
- esac
+abrivatedPath() { # abrivated working direcotry
+    w='\w'; IFS=/ read -a a <<< "${w@P}"
+    ((c=${#a[@]}-1))
+    for e in "${a[@]::$c}"; do
+        [[ $e =~ ^\. ]]&&l=2||l=1
+        printf '%s/' "${e:0:$l}"
+        done; echo "${a[$c]}"
+}
 
- [ $UID -eq "0" ] && UC=$regRed && CC=$regRed && DC=$regRed # root color
+bashPromptCommand() {
+    local exitCode="$?"
+    [ "$exitCode" -eq "0" ] && exitCode=""
 
+    local UC="$promptGrn"                   # user color
+    [ "$UID" -eq "0" ] && UC="$promptYlw"   # root color
+    local SC="$promptBlu"                   # seperator color
+    local MC="$promptPur"                   # machine color
+    local DC="$promptCyn"                   # directory color
+    local EC="$promptRed"                   # exit code color
+    
+    local promptSymbol='\$>'
+    [ "$UID" -eq "0" ] && promptSymbol='#>'
 
- PS1="$TITLEBAR${AC}|${TC}\D{%F %T}${AC}|${UC}\u${AC}@${MC}\h${AC}:[${DC}\w${AC}]${EC} \${?#0}\n${CC}>\[\e]1337;CurrentDir="'$(pwd)\a\]'
-
- # for terminal line coloring, leaving the rest standard
- none="$(tput sgr0)"
- trap 'echo -ne "${none}"' DEBUG
+    PS1=                            # clear $PS1
+    PS1+="${UC}${USER:0:1}"         # user 1 letter
+    PS1+="${SC}@"                   # @ seperator
+    PS1+="${MC}${HOSTNAME:0:1}"     # host 1 letter
+    PS1+="${SC}:"                   # : seperator
+    PS1+="${DC}\$(abrivatedPath)"   # abrivated path and working directory
+    PS1+="${SC}|"                   # : seperator
+    PS1+="${EC}${exitCode}"         # exit code
+    PS1+="${UC}${promptSymbol}"     # prompt symbol
+    PS1+="${promptReset}"           # reset color for input text
+    
+    # for terminal line coloring, leaving the rest standard
+    #none="$(tput sgr0)"
+    #trap 'echo -ne "${none}"' DEBUG
 }
