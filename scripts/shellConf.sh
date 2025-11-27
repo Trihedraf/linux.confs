@@ -12,6 +12,7 @@ lnHomeConf() {
 mkdir -pv "$HOME" "$HOME/.bash" #"$HOME/.zsh"
 lnHomeConf "$HOME" ".bashrc"
 lnHomeConf "$HOME" ".bash/aliases"
+lnHomeConf "$HOME" ".bash/colors"
 lnHomeConf "$HOME" ".bash/functions"
 lnHomeConf "$HOME" ".bash/prompt"
 #lnHomeConf "$HOME" ".zshrc"
