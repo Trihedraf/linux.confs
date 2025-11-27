@@ -40,6 +40,12 @@ cpEtcConf() {
 }
 
 
+kitty_config()
+{
+    lnHomeConf "$GITPATH/.config/kitty" "$HOME/.config/kitty" "kitty.conf"
+    printf "Kitty config has been installed.\n"
+}
+
 konsole_config()
 {
     lnHomeConf "$GITPATH/.local/share/konsole" "$HOME/.local/share/konsole" "tri.profile"
@@ -54,6 +60,7 @@ mango_config()
 }
 
 if [ "$guiConfigs" = 1 ]; then
+    kitty_config
     konsole_config
     mango_config
 fi
