@@ -41,6 +41,8 @@ alias dcu='sudo docker compose up -d'
 alias dcuc='sudo docker compose up --remove-orphans'
 alias dlt='sudo docker logs -tf'
 alias dcl='sudo docker compose logs -tf'
+alias rdcd='for dir in */; do (cd "$dir" && dcd); done' #recursive docker compose down
+alias rdcu='for dir in */; do (cd "$dir" && dcu); done' #recursive docker compose up -d
 
 # file manipulation
 alias ..='cd ..'
