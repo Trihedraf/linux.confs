@@ -15,3 +15,20 @@ bash -c "$(curl -fsSL xurl.ing/arch)" -s --etc=ON --gui=ON
 ```bash
 sudo apt install curl && bash -c "$(curl -fsSL xurl.ing/debian)" -s --docker=ON --tailscale=ON --zfs=OFF
 ```
+
+# Proxmox System Setup Script
+
+For using proxmox as a debian server with zfs-on-root built-in.
+
+```bash
+apt install sudo
+useradd -s /bin/bash $newUser
+usermod -aG sudo $newUser
+passwd $newUser
+```
+
+Login to new user.
+
+```bash
+bash -c "$(curl -fsSL xurl.ing/proxmox)"
+```
