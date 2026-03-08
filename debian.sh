@@ -31,9 +31,9 @@ done
 
 sudo sh -c 'echo "" > /etc/motd'
 
-sudo apt-get install nala
-
 sudo dpkg --add-architecture i386
+sudo apt-get update || exit
+sudo apt-get install nala
 if sudo DEBIAN_FRONTEND=noninteractive nala install -y build-essential \
 cmake cockpit curl fastfetch flatpak git gh ethtool iperf3 libz-mingw-w64-dev \
 micro mingw-w64 mingw-w64-tools multitail net-tools pipx resolvconf rsync \

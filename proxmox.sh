@@ -3,6 +3,7 @@
 sudo sh -c 'echo "" > /etc/motd'
 
 sudo dpkg --add-architecture i386
+sudo apt-get update || exit
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nala || exit
 sudo DEBIAN_FRONTEND=noninteractive nala install -y \
 build-essential \
