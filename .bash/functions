@@ -33,7 +33,7 @@ function _encrypt-tar-xz() {
         return 1
     fi
     echo "Creating and encrypting $fileName.tar.xz..."
-    tar -cJf "$dataToEncrypt" | gpg -c --cipher-algo AES-256 --no-symkey-cache -o "${fileName}.tar.xz.gpg"
+    tar -cJf - "$dataToEncrypt" | gpg -c --cipher-algo AES-256 --no-symkey-cache -o "${fileName}.tar.xz.gpg"
 }
 
 function _decrypt-tar-xz() {
