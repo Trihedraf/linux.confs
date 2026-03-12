@@ -24,3 +24,23 @@ function _rmed() {
 function _romzip() {
 	find ./ -type f -exec sh -c 'zip -9 "${1%.*}.zip" "${1}"' -- '{}' \;
 }
+
+function _encrypt-tar-xz() {
+    local dataToEncrypt="$1"
+    local fileName="$2"
+    if [[ -z "$fileName" ]]; then
+        echo "Usage: cxzen <directory_or_file> <output_filename_without_extension>"
+        return 1
+    fi
+    echo "Creating and encrypting $fileName.tar.xz..."
+    tar -cJf "$dataToEncrypt" | gpg -c --cipher-algo AES-256 --no-symkey-cache -o "${fileName}.tar.xz.gpg"
+}
+
+function _decrypt-tar-xz() {
+    local encrypted_file="$1"
+    if [[ -z "$encrypted_file" ]]; then
+        echo "Usage: xxzen <file.tar.xz.gpg>"
+        return 1
+    fi
+    gpg -d "$encrypted_file" | tar -xJf -
+}

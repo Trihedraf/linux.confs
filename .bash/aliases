@@ -46,11 +46,13 @@ alias rdcu='for dir in */; do (cd "$dir" && dcu); done' #recursive docker compos
 
 # file manipulation
 alias ..='cd ..'
+alias cxzen='_encrypt-tar-xz'
 alias mkcd='_mkcd'
 alias rcp='rsync -vcAXtUhhP --inplace --numeric-ids --stats'
 alias rmed='_rmed'
 alias rmv='rsync -vcAXtUhhP --inplace --numeric-ids --stats --remove-source-files'
 alias romzip='_romzip'
+alias xxzen='_decrypt-tar-xz'
 
 # file permissions
 alias chwrr='sudo chmod -R a=r,a+X,u+w'
