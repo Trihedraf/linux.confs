@@ -12,6 +12,8 @@ fastfetch \
 git \
 gh \
 iperf3 \
+jq \
+micro \
 multitail \
 net-tools \
 pipx \
