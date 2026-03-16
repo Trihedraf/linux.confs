@@ -35,9 +35,10 @@ sudo dpkg --add-architecture i386
 sudo apt-get update || exit
 sudo apt-get install nala
 if sudo DEBIAN_FRONTEND=noninteractive nala install -y build-essential \
-cmake cockpit curl fastfetch flatpak git gh ethtool iperf3 libz-mingw-w64-dev \
-micro mingw-w64 mingw-w64-tools multitail net-tools pipx resolvconf rsync \
-screen shellcheck smpq tar trash-cli tree wget unzip zip zsh; then
+cmake cockpit curl fastfetch flatpak git gh ethtool iperf3 jq libz-mingw-w64-dev \
+micro mingw-w64 mingw-w64-tools multitail net-tools nfs-kernel-server pipx \
+resolvconf rsync samba screen shellcheck smpq tar trash-cli tree wget unzip zip \
+; then
     sudo resolvconf -u
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
     sudo systemctl enable cockpit.socket
