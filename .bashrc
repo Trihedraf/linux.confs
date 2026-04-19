@@ -1,4 +1,4 @@
-# Source global definitions
+#Source global bash confs
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
@@ -15,6 +15,7 @@ shopt -s dotglob
 shopt -s globstar
 shopt -s histappend
 
+#Bash Completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash-completion ]; then
     . /usr/share/bash-completion/bash-completion
@@ -23,8 +24,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+#Add local binaries to PATH
 export PATH="~/.local/bin:$PATH"
 
+#Set micro as the editor
 if [ -f "$HOME/.local/bin/micro" ];then
     micro="$HOME/.local/bin/micro"
 elif [ -f /home/linuxbrew/.linuxbrew/bin/micro ]; then
@@ -35,6 +38,7 @@ export VISUAL=$micro
 export EDITOR=$micro
 export SUDO_EDITOR=$micro
 
+#Source local bash confs
 if [ -d "$HOME/.bash" ]; then
     for file in "$HOME/.bash"/*; do
         [ -f "$file" ] && source "$file"
@@ -44,6 +48,7 @@ fi
 #clear
 #fastfetch
 
+#Fix for immutable distros that use /var/home like Bazzite
 if [ $PWD == "/var$HOME" ]; then
     cd $HOME
 fi
