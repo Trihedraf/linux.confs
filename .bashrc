@@ -35,16 +35,10 @@ export VISUAL=$micro
 export EDITOR=$micro
 export SUDO_EDITOR=$micro
 
-if [ -f "$HOME/.bash/aliases" ]; then
-    . "$HOME/.bash/aliases"
-fi
-
-if [ -f "$HOME/.bash/functions" ]; then
-    . "$HOME/.bash/functions"
-fi
-
-if [ -f "$HOME/.bash/prompt" ]; then
-    . "$HOME/.bash/prompt"
+if [ -d "$HOME/.bash" ]; then
+    for file in "$HOME/.bash"/*; do
+        [ -f "$file" ] && source "$file"
+    done
 fi
 
 #clear
