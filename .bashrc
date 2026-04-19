@@ -1,6 +1,6 @@
 #Source global bash confs
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+    source /etc/bashrc
 fi
 
 #History Options
@@ -18,9 +18,9 @@ shopt -s histappend
 #Bash Completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash-completion ]; then
-    . /usr/share/bash-completion/bash-completion
+    source /usr/share/bash-completion/bash-completion
   elif [ -f /etc/bash-completion ]; then
-    . /etc/bash-completion
+    source /etc/bash-completion
   fi
 fi
 
