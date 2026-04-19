@@ -5,13 +5,18 @@ alias grep='grep --color=auto'
 alias hg='_hg'
 alias l1='ls -A1 --color'
 alias lg='looking-glass-client -m 148 -f /dev/kvmfr0'
-alias ll='ls -lAh --full-time --color'
 alias jwtgen="_jwtgen"
 alias nas='ssh nas.lan'
 alias pa='ps -A | grep'
 alias t='tmux attach || tmux new-session'
 alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
 alias ftd='_ftd'
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ll='gls -lAh --full-time --color'
+else
+    alias ll='ls -lAh --full-time --color'
+fi
 
 # calendar
 alias jan='cal -m 01'
