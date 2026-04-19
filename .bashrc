@@ -32,6 +32,8 @@ if [ -f "$HOME/.local/bin/micro" ];then
     micro="$HOME/.local/bin/micro"
 elif [ -f /home/linuxbrew/.linuxbrew/bin/micro ]; then
     micro=/home/linuxbrew/.linuxbrew/bin/micro
+else
+    micro=micro
 fi
 
 export VISUAL=$micro
