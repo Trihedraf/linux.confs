@@ -1,0 +1,13 @@
+Install:
+com.brave.Browser
+io.github.pol_rivero.github-desktop-plus
+com.discordapp.Discord
+org.keepassxc.KeePassXC
+org.libreoffice.LibreOffice
+md.obsidian.Obsidian
+com.rustdesk.RustDesk
+org.videolan.VLC
+
+Remove:
+Firefox
+Haruna
