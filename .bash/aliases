@@ -9,6 +9,7 @@ alias jwtgen="_jwtgen"
 alias nas='ssh nas.lan'
 alias pa='ps -A | grep'
 alias t='tmux attach || tmux new-session'
+alias tr='tmux-session'
 alias ftn='for f in *.mkv; do title=$(sed -e "s/.* - .* - //g" <<< "${f%.*}"); mkvpropedit "$f" -e info -s title="$title"; done'
 alias ftd='_ftd'
 
