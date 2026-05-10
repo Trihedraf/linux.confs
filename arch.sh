@@ -2,7 +2,7 @@
 optList=$(getopt -o g:h --long ,gui:,help -n 'arch.sh' -- "$@")
 eval set -- "$optList"
 
-guiInstall=1
+guiInstall=0
 
 while true; do
     case "$1" in
@@ -20,7 +20,7 @@ while true; do
             printf "Usage: %s: [OPTION]\n" "$0"
             printf "    -h,--help           This help\n\n"
             printf "    Valid options for the following flags are ON and OFF.       Default\n"
-            printf "    -g,--gui            Enable or Disable GUI apps install.     ON\n"
+            printf "    -g,--gui            Enable or Disable GUI apps install.     OFF\n"
             exit 2
         ;;
         *)
@@ -53,32 +53,98 @@ if [ -d "$HOME/git/linux.confs" ]; then
     fi
 fi
 
-sudo pacman -Syy --noconfirm --needed base-devel cmake docker docker-buildx \
-docker-compose fastfetch flatpak giflib lib32-giflib github-cli gnutls \
-lib32-gnutls libpng lib32-libpng linux-tools man-db micro mingw-w64 ncurses \
-lib32-ncurses screen shellcheck superfile sqlite lib32-sqlite tailscale tar \
-tree tldr trash-cli unzip zip zsh
+sudo pacman -Syy --noconfirm --needed \
+base-devel \
+bat \
+btop \
+cmake \
+devtools \
+docker \
+docker-buildx \
+docker-compose \
+ethtool \
+fastfetch \
+github-cli \
+gnutls lib32-gnutls\
+htop \
+iperf3 \
+linux-tools \
+man-db \
+man-pages \
+micro \
+mingw-w64 \
+msmtp \
+ncurses \
+lib32-ncurses \
+net-tools \
+nfs-utils \
+samba \
+screen \
+shellcheck 
+superfile \
+sqlite \
+lib32-sqlite \
+tar \
+tree \
+tldr \
+trash-cli \
+unzip \
+wget \
+zip \
 
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
-
-if ! command -v paru > /dev/null 2>&1; then
-    git clone https://aur.archlinux.org/paru-bin.git "$HOME/git/paru-bin"
-    if cd "$HOME/git/paru-bin"; then
-        makepkg -si --noconfirm --needed
-    fi
-fi
 
 if [ "$guiInstall" = 1 ]; then
-    sudo pacman -Syy --noconfirm --needed alacritty code discord \
-    libreoffice-fresh steam alsa-lib lib32-alsa-lib \
-    alsa-utils alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib \
-    gst-plugins-base-libs lib32-gst-plugins-base-libs gtk2 gtk3 lib32-gtk2 \
-    lib32-gtk3 libldap lib32-libldap libpulse lib32-libpulse libva lib32-libva \
-    libxcomposite lib32-libxcomposite libxinerama lib32-libxinerama openal \
-    lib32-openal ocl-icd lib32-ocl-icd sdl2 lib32-sdl2 v4l-utils \
-    lib32-v4l-utils vulkan-icd-loader lib32-vulkan-icd-loader xclip wl-clipboard
-    paru -S --noconfirm --needed brave-bin github-desktop
-fi
+    # Libraries for GUI
+    sudo pacman -Syy --noconfirm --needed \
+    alsa-lib lib32-alsa-lib \
+    alsa-plugins lib32-alsa-plugins \
+    alsa-utils \
+    flatpak \
+    gamemode lib32-gamemode \
+    gamescope \
+    giflib lib32-giflib \
+    gst-plugins-base-libs lib32-gst-plugins-base-libs \
+    gtk3 lib32-gtk3 \
+    libgcrypt lib32-libgcrypt \
+    libgpg-error lib32-libgpg-error \
+    libjpeg-turbo lib32-libjpeg-turbo \
+    libldap lib32-libldap \
+    libpng lib32-libpng \
+    libpulse lib32-libpulse \
+    libva lib32-libva \
+    libxcomposite lib32-libxcomposite \
+    libxinerama lib32-libxinerama \
+    libxslt lib32-libxslt \
+    mesa lib32-mesa \
+    mpg123 lib32-mpg123 \
+    ocl-icd lib32-ocl-icd \
+    openal lib32-openal \
+    opencl-icd-loader lib32-opencl-icd-loader \
+    sdl2-compat lib32-sdl2-compat \
+    sdl3 lib32-sdl3 \
+    v4l-utils lib32-v4l-utils \
+    vulkan-icd-loader lib32-vulkan-icd-loader \
+    vulkan-radeon lib32-vulkan-radeon
 
-echo "run 'chsh -s /bin/zsh' to set your shell to zsh"
-echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
+    # GUI Applications
+    sudo pacman -Syy --noconfirm --needed \
+    alacritty \
+    discord \
+    ghostty \
+    goverlay \
+    kitty \
+    libreoffice-fresh \
+    lutris \
+    mangohud lib32-mangohud \
+    steam \
+    xclip wl-clipboard
+
+    # ART GUI Applications
+    sudo pacman -Syy --noconfirm --needed \
+    brave-bin \
+    github-desktop-plus-bin \
+    visual-studio-code-bin
+    
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
+
+fi
