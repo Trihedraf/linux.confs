@@ -45,12 +45,10 @@ if [ -d "$HOME/git/linux.confs" ]; then
         "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
         "$HOME/git/linux.confs/scripts/configFiles.sh" -g || printf "desktop app configurations failed"
     fi
-    if cd "$HOME/git/linux.confs"; then
-        if sudo cp -rv ./archlinux/etc/* /etc/; then
-            sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
-            sudo systemctl enable udpgroforwarding.service
-        fi
-    fi
+#    if cd "$HOME/git/linux.confs"; then
+#        if sudo cp -rv ./archlinux/etc/* /etc/; then
+#        fi
+#    fi
 fi
 
 sudo pacman -Syy --noconfirm --needed \

@@ -49,8 +49,6 @@ fi
 if ! command -v docker > /dev/null 2>&1; then curl -fsSL https://get.docker.com | sh; fi && \
 sudo usermod -aG docker "$(whoami)"
 
-if ! command -v tailscale > /dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh; fi
-
 
 if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; then
     "$HOME/git/linux.confs/scripts/spfInstall.sh"
@@ -58,8 +56,6 @@ if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; t
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
     if cd "$HOME/git/linux.confs"; then
         if sudo cp -rv ./debian-trixie/etc/* /etc/; then
-            sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
-            sudo systemctl enable udpgroforwarding.service
             sudo rm /etc/apt/sources.list && sudo nala update
             if [ "$zfsInstall" = 1 ]; then
                 sudo DEBIAN_FRONTEND=noninteractive nala install -y linux-headers-amd64 zfsutils-linux &&\
@@ -72,5 +68,4 @@ if git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"; t
     fi
 fi
 
-echo "Please change your NIC from eth0 to correct id in /etc/systemd/system/udpgroforwarding.service then start udpgroforwarding.service"
 echo "Please add nameserver ip_address to /etc/resolvconf/resolv.conf.d/base"
