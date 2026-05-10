@@ -39,7 +39,7 @@ else
 fi
 
 if [ -d "$HOME/git/linux.confs" ]; then
-    "$HOME/git/linux.confs/scripts/configFiles.sh" -at || printf "terminal app configurations failed"
+    "$HOME/git/linux.confs/scripts/configFiles.sh" -t || printf "terminal app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
     if [ "$guiInstall" = 1 ]; then
         "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"

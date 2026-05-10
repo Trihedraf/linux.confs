@@ -1,18 +1,15 @@
 #!/bin/sh
 GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
-archConfigs=0
 guiConfigs=0
 terminalConfigs=0
-while getopts agth? name
+while getopts gth? name
 do
     case $name in
-        a)      archConfigs=1;;
         g)      guiConfigs=1;;
         t)      terminalConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
-            printf "\-a      Install archlinux Configs\n"
             printf "\-g      Install gui Configs\n"
             printf "\-t      Install Terminal Configs\n"
         exit 2;;
@@ -100,14 +97,4 @@ if [ "$terminalConfigs" = 1 ]; then
     micro_config
     sftp_config
     sudo_config
-fi
-
-paru_config()
-{
-    lnHomeConf "$GITPATH/.config/paru" "$HOME/.config/paru" "paru.conf"
-    printf "paru config has been installed.\n"
-}
-
-if [ "$archConfigs" = 1 ]; then
-    paru_config
 fi
