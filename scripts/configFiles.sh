@@ -88,7 +88,7 @@ sftp_config()
 
 sudo_config()
 {
-    cpEtcConf "/etc/sudoers.d" "wheel"
+    cpEtcConf "/etc/sudoers.d" "00-wheel"
     printf "sudo config has been installed.\n"
 }
 
