@@ -107,6 +107,9 @@ wget \
 wikiman \
 zip \
 
+if command -v docker > /dev/null 2>&1; then
+    sudo systemctl enable --now docker.socket
+fi
 
 if [ "$guiInstall" = 1 ]; then
     # Libraries for GUI
