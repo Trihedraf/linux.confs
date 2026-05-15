@@ -45,49 +45,67 @@ if [ -d "$HOME/git/linux.confs" ]; then
         "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
         "$HOME/git/linux.confs/scripts/configFiles.sh" -g || printf "desktop app configurations failed"
     fi
-#    if cd "$HOME/git/linux.confs"; then
-#        if sudo cp -rv ./archlinux/etc/* /etc/; then
-#        fi
-#    fi
+    if cd "$HOME/git/linux.confs"; then
+        if sudo cp -rv ./archlinux/etc/* /etc/; then
+        fi
+    fi
 fi
 
 sudo pacman -Syy --noconfirm --needed \
+amd-ucode \
+arch-wiki-docs \
+arch-wiki-lite \
 base-devel \
+bash-completion \
 bat \
 btop \
 cmake \
 devtools \
+dmidecode \
 docker \
 docker-buildx \
 docker-compose \
+efibootmgr \
 ethtool \
+fail2ban \
 fastfetch \
 github-cli \
 gnutls lib32-gnutls\
 htop \
+intel-ucode \
 iperf3 \
+kitty-terminfo \
 linux-tools \
 man-db \
 man-pages \
 micro \
 mingw-w64 \
 msmtp \
+nano \
 ncurses \
 lib32-ncurses \
 net-tools \
 nfs-utils \
+nmap \
+openssh \
+pv \
 samba \
 screen \
-shellcheck 
+shellcheck \
+smartmontools \
 superfile \
 sqlite \
 lib32-sqlite \
 tar \
+terminus-font \
 tree \
 tldr \
+tmux \
 trash-cli \
+ufw \
 unzip \
 wget \
+wikiman \
 zip \
 
 
@@ -118,11 +136,17 @@ if [ "$guiInstall" = 1 ]; then
     ocl-icd lib32-ocl-icd \
     openal lib32-openal \
     opencl-icd-loader lib32-opencl-icd-loader \
+    protontricks \
     sdl2-compat lib32-sdl2-compat \
     sdl3 lib32-sdl3 \
     v4l-utils lib32-v4l-utils \
+    vkd3d lib32-wkd3d \
     vulkan-icd-loader lib32-vulkan-icd-loader \
-    vulkan-radeon lib32-vulkan-radeon
+    vulkan-radeon lib32-vulkan-radeon \
+    wine \
+    wine-gecko \
+    wine-mono \
+    winetricks
 
     # GUI Applications
     sudo pacman -Syy --noconfirm --needed \
@@ -130,12 +154,17 @@ if [ "$guiInstall" = 1 ]; then
     discord \
     ghostty \
     goverlay \
+    keepassxc \
     kitty \
     libreoffice-fresh \
     lutris \
     mangohud lib32-mangohud \
+    obsidian \
     steam \
-    xclip wl-clipboard
+    umu-launcher \
+    virt-manager \
+    xclip \
+    wl-clipboard
 
     # ART GUI Applications
     sudo pacman -Syy --noconfirm --needed \
