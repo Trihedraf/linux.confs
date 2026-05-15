@@ -46,8 +46,7 @@ if [ -d "$HOME/Projects/git/linux.confs" ]; then
         "$HOME/Projects/git/linux.confs/scripts/configFiles.sh" -g || printf "desktop app configurations failed"
     fi
     if cd "$HOME/Projects/git/linux.confs"; then
-        if sudo cp -rv ./archlinux/etc/* /etc/; then
-        fi
+        sudo cp -rv ./archlinux/etc/* /etc/
     fi
 fi
 
