@@ -75,6 +75,12 @@ micro_config()
     printf "micro config has been installed.\n"
 }
 
+sanoid_config()
+{
+    cpEtcConf "/etc/sanoid" "sanoid.conf"
+    printf "sanoid config template has been installed.\n"
+}
+
 sftp_config()
 {
     cpEtcConf "/etc/ssh/sshd_config.d" "sftp.conf"
