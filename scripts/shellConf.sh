@@ -16,4 +16,4 @@ lnHomeConf "$HOME" ".bash/colors"
 lnHomeConf "$HOME" ".bash/functions"
 lnHomeConf "$HOME" ".bash/prompt"
 
-printf "All bash and have been linked. Please run . ~/.bashrc for bash or logout and back in to enable the configs.\n"
+printf "All bash configs have been linked. Please run . ~/.bashrc or logout and login to enable the configs.\n"
