@@ -34,7 +34,7 @@ sudo pacman -Syy --noconfirm --needed git wget
 if [ -d "$HOME/Projects/git/linux.confs" ]; then
     cd "$HOME/Projects/git/linux.confs"
     git pull
-else 
+else
     git clone https://github.com/Trihedraf/linux.confs "$HOME/Projects/git/linux.confs"
 fi
 
@@ -69,7 +69,7 @@ ethtool \
 fail2ban \
 fastfetch \
 github-cli \
-gnutls lib32-gnutls\
+gnutls lib32-gnutls \
 htop \
 intel-ucode \
 iperf3 \
@@ -170,7 +170,7 @@ if [ "$guiInstall" = 1 ]; then
     brave-bin \
     github-desktop-plus-bin \
     visual-studio-code-bin
-    
+
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
 
 fi
