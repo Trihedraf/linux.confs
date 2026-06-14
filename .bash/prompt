@@ -4,39 +4,60 @@ if [ -f "$HOME/.bash/colors" ]; then
 fi
 
 abrivatedPath() { # abrivated working direcotry
-    w='\w'; IFS=/ read -a a <<< "${w@P}"
-    ((c=${#a[@]}-1))
-    for e in "${a[@]::$c}"; do
-        [[ $e =~ ^\. ]]&&l=2||l=1
-        printf '%s/' "${e:0:$l}"
-        done; echo "${a[$c]}"
+    home="${HOME%/}"
+    if [[ "$PWD" == "$home" ]]; then
+        path="~"
+    elif [[ "$PWD" == "$home/"* ]]; then
+        path="~/${PWD#$home}"
+    else
+        path="$PWD"
+    fi
+    IFS=/ read -ra parts <<< "$path"
+    ((last=${#parts[@]}-1))
+    if [[ "${parts[0]}" == "~" ]]; then
+        printf '~'; parent="$HOME"
+    else
+        printf '/'; parent=""
+    fi
+    for ((pc=1; pc<last; pc++)); do
+        component="${parts[pc]}"
+        if (( ${#component} > 8 )); then
+            prefix="${component:0:6}"
+            [[ -z "$parent" ]] && globpath="/" || globpath="$parent/"
+            mapfile -t matches < <((shopt -s nullglob; printf '%s\n' "$globpath$prefix"*/) | sort -V)
+            position=1
+            for ((mi=0; mi<${#matches[@]}; mi++)); do
+                [[ "${matches[mi]%/}" == "${globpath}$component" ]] && { position=$((mi+1)); break; }
+            done
+            base_len=6 tmp=$position; while (( tmp >= 10 )); do (( base_len-- )); (( tmp /= 10 )); done
+            printf '%s/' "${component:0:$base_len}~${position}"
+        else
+            printf '%s/' "$component"
+        fi
+        parent+="/$component"
+    done
+    [ $last -gt 0 ] && echo "${parts[$last]}"
 }
 
 bashPromptCommand() {
     local exitCode="$?"
     [ "$exitCode" -eq "0" ] && exitCode=""
 
-    local UC="$promptGrn"                   # user color
-    [ "$UID" -eq "0" ] && UC="$promptYlw"   # root color
-    local SC="$promptBlu"                   # seperator color
-    local MC="$promptPur"                   # machine color
-    local DC="$promptCyn"                   # directory color
-    local EC="$promptRed"                   # exit code color
-    
-    local promptSymbol='\$>'
-    [ "$UID" -eq "0" ] && promptSymbol='#>'
+    local MC="$promptBldPur"        # machine color
+    local DC="$promptBldCyn"        # directory color
+    local EC="$promptRed"           # exit code color
+    local PC="$promptBldGrn"        # prompt color
+    local promptUserSymbol='\$'     # prompt symbol
+    [ "$UID" -eq "0" ] && { PC="$promptRed"; promptUserSymbol='#'; } # root check
 
     PS1=                            # clear $PS1
-    PS1+="${UC}${USER:0:1}"         # user 1 letter
-    PS1+="${SC}@"                   # @ seperator
-    PS1+="${MC}${HOSTNAME:0:1}"     # host 1 letter
-    PS1+="${SC}:"                   # : seperator
-    PS1+="${DC}\$(abrivatedPath)"   # abrivated path and working directory
-    PS1+="${SC}|"                   # : seperator
     PS1+="${EC}${exitCode}"         # exit code
-    PS1+="${UC}${promptSymbol}"     # prompt symbol
+    PS1+="${MC}${HOSTNAME}"         # host
+    PS1+="${DC}\$(abrivatedPath)"   # abrivated path and working directory
+    PS1+="${PC}${promptUserSymbol}" # prompt user symbol
+    PS1+="${PC}>"                   # prompt symbol
     PS1+="${promptReset}"           # reset color for input text
-    
+
     # for terminal line coloring, leaving the rest standard
     #none="$(tput sgr0)"
     #trap 'echo -ne "${none}"' DEBUG
