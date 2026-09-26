@@ -1,3 +1,10 @@
+# Omarchy
+if [ -d /usr/share/omarchy ]; then
+    [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && source /usr/share/omarchy/default/bash/env-bootstrap
+    [[ $- != *i* ]] && return
+    source "$OMARCHY_PATH/default/bash/rc"
+fi
+
 #Source global bash confs
 if [ -f /etc/bashrc ]; then
     source /etc/bashrc
