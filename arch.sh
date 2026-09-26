@@ -1,5 +1,5 @@
 #!/bin/bash
-optList=$(getopt -o fg:h --long fingerprint,gui:,help -n 'arch.sh' -- "$@")
+optList=$(getopt -o fgh --long fingerprint,gui,help -n 'arch.sh' -- "$@")
 eval set -- "$optList"
 
 guiInstall=0
