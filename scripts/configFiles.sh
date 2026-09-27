@@ -45,12 +45,6 @@ ghostty_config()
     printf "Ghostty config has been installed.\n"
 }
 
-kitty_config()
-{
-    lnHomeConf "$GITPATH/.config/kitty" "$HOME/.config/kitty" "kitty.conf"
-    printf "Kitty config has been installed.\n"
-}
-
 konsole_config()
 {
     lnHomeConf "$GITPATH/.local/share/konsole" "$HOME/.local/share/konsole" "tri.profile"
@@ -66,7 +60,6 @@ mango_config()
 
 if [ "$guiConfigs" = 1 ]; then
     ghostty_config
-    kitty_config
     konsole_config
     mango_config
 fi
@@ -101,15 +94,15 @@ sftp_config()
     printf "internal sftp config has been installed.\n"
 }
 
-sudo_config()
-{
-    cpEtcConf "/etc/sudoers.d" "00-wheel"
-    printf "sudo config has been installed.\n"
-}
+#sudo_config()
+#{
+#    cpEtcConf "/etc/sudoers.d" "00-wheel"
+#    printf "sudo config has been installed.\n"
+#}
 
 if [ "$terminalConfigs" = 1 ]; then
     fastfetch_config
     micro_config
     sftp_config
-    sudo_config
+#    sudo_config
 fi
