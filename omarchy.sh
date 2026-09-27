@@ -83,6 +83,9 @@ wine-mono \
 winetricks
 
 # GUI Applications
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
+flatpak install flathub org.desktop_plus.desktop-plus
+
 sudo pacman -S --noconfirm --needed \
 discord \
 ghostty \
@@ -104,6 +107,4 @@ brave-bin \
 rustdesk \
 visual-studio-code-bin
 
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
 
-echo 'Install "Desktop Plus" from FlatHub.'
