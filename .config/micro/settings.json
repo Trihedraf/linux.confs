@@ -1,7 +1,7 @@
 {
     "clipboard": "terminal",
     "colorcolumn": 80,
-    "colorscheme": "monokai-dark",
+    "colorscheme": "simple",
     "diffgutter": true,
     "fakecursor": true,
     "hlsearch": true,

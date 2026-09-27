@@ -14,7 +14,9 @@ mouse-hide-while-typing = "true"
 
 window-width = "120"
 window-height = "36"
-window-show-tab-bar = "always"
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = "true"
 gtk-wide-tabs = "false"
 macos-non-native-fullscreen = "false"
 macos-titlebar-style = "tabs"
