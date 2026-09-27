@@ -168,6 +168,7 @@ if [ "$guiInstall" = 1 ]; then
     steam \
     umu-launcher \
     virt-manager \
+    vlc \
     xclip \
     wl-clipboard
 

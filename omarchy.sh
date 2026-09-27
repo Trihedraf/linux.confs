@@ -95,6 +95,7 @@ mangohud lib32-mangohud \
 steam \
 umu-launcher \
 virt-manager \
+vlc \
 xclip
 
 # Omarchy repo
