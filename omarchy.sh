@@ -1,22 +1,18 @@
 #!/bin/bash
-if [ -d "$HOME/git/linux.confs" ]; then
-    cd "$HOME/git/linux.confs" || exit
-    git pull
+GIT_DIR="$HOME/git/linux.confs"
+SCRIPT_DIR=$(cd "$(dirname "$(realpath "$0")")" && pwd)
+if [ "$SCRIPT_DIR" = "$GIT_DIR" ]; then
+    cd "$GIT_DIR" || exit
 else
-    git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs" || exit
+    git clone https://github.com/Trihedraf/linux.confs "$GIT_DIR" || exit
+    exec "$GIT_DIR/omarchy.sh" "$@"
+    exit
 fi
 
-if [ -d "$HOME/git/linux.confs" ]; then
-    "$HOME/git/linux.confs/scripts/configFiles.sh" -gt || printf "app configurations failed"
-    "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
-    "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
-    sudo cp -v "$HOME/git/linux.confs/omarchy/etc/pacman.conf" /etc/pacman.conf || printf "pacman.conf failed to copy"
-fi
-
-sudo omarchy-update -y
+sudo cp -v "$GIT_DIR/omarchy/etc/pacman.conf" /etc/pacman.conf || printf "pacman.conf failed to copy"
+omarchy-update -y || exit
 
 sudo pacman -S --noconfirm --needed \
-amd-ucode \
 arch-wiki-docs \
 arch-wiki-lite \
 cmake \
@@ -87,7 +83,7 @@ winetricks
 
 # GUI Applications
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "Flathub repo added"
-flatpak install flathub org.desktop_plus.desktop-plus
+flatpak install flathub org.desktop_plus.desktop-plus -y
 
 sudo pacman -S --noconfirm --needed \
 discord \
@@ -104,11 +100,15 @@ virt-manager \
 vlc \
 xclip
 
-# Omarchy repo
+## Omarchy repo
 sudo pacman -S --noconfirm --needed \
 brave-bin \
 rustdesk \
 visual-studio-code-bin
+
+"$GIT_DIR/scripts/configFiles.sh" -gto || printf "app configurations failed"
+"$GIT_DIR/scripts/shellConf.sh" || printf "shell configuration failed"
+"$GIT_DIR/scripts/fontInstall.sh" || printf "font install failed"
 
 # Omarchy plugins
 ## Settings Panel
@@ -125,4 +125,3 @@ omarchy plugin add https://github.com/SirJul1337/omarchy-lock-explorer.git --ena
     omarchy-shell lock setFieldItem layout hide && \
     omarchy-shell lock setDesign my-classic
 
-"$HOME/git/linux.confs/scripts/configFiles.sh" -gto || printf "app configurations failed"
