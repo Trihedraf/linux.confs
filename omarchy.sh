@@ -3,7 +3,7 @@ if [ -d "$HOME/git/linux.confs" ]; then
     cd "$HOME/git/linux.confs" || exit
     git pull
 else
-    git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs"
+    git clone https://github.com/Trihedraf/linux.confs "$HOME/git/linux.confs" || exit
 fi
 
 if [ -d "$HOME/git/linux.confs" ]; then
@@ -13,7 +13,9 @@ if [ -d "$HOME/git/linux.confs" ]; then
     sudo cp -v "$HOME/git/linux.confs/omarchy/etc/pacman.conf" /etc/pacman.conf || printf "pacman.conf failed to copy"
 fi
 
-sudo pacman -Syy --noconfirm --needed \
+sudo omarchy-update -y
+
+sudo pacman -S --noconfirm --needed \
 amd-ucode \
 arch-wiki-docs \
 arch-wiki-lite \
@@ -22,6 +24,7 @@ devtools \
 dmidecode \
 ethtool \
 fail2ban \
+fwupd \
 gimp \
 github-cli \
 lib32-gnutls \
