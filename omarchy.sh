@@ -107,4 +107,19 @@ brave-bin \
 rustdesk \
 visual-studio-code-bin
 
+# Omarchy plugins
+## Settings Panel
+omarchy plugin add https://github.com/twiking/omasettings.git --enable --yes
+## Better Default Apps
+omarchy plugin add https://github.com/nightdevil00/setup.defaults.git --enable --yes
+## Lockscreen Plugin/Setup
+omarchy plugin add https://github.com/SirJul1337/omarchy-lock-explorer.git --enable --yes && \
+    "$HOME/.config/omarchy/plugins/io.github.sirjul1337.lock-explorer/extras/install.sh" && \
+    omarchy-shell lock setMenuEntry on && \
+    omarchy-shell lock setFieldItem caps hide && \
+    omarchy-shell lock setFieldItem reveal hide && \
+    omarchy-shell lock setFieldItem icons hide && \
+    omarchy-shell lock setFieldItem layout hide && \
+    omarchy-shell lock setDesign my-classic
 
+"$HOME/git/linux.confs/scripts/configFiles.sh" -gto || printf "app configurations failed"

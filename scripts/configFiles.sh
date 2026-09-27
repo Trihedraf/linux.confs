@@ -2,15 +2,18 @@
 GITPATH=$(cd "$(dirname "$(realpath "$0")")" && cd ../ && pwd)
 
 guiConfigs=0
+omarchyConfigs=0
 terminalConfigs=0
-while getopts gth? name
+while getopts gtoh? name
 do
     case $name in
         g)      guiConfigs=1;;
         t)      terminalConfigs=1;;
+        o)      omarchyConfigs=1;;
         h|?)    printf "Usage: %s: [OPTION]\n" "$0"
             printf "\-h, -?  This help\n"
             printf "\-g      Install gui Configs\n"
+            printf "\-o      Install Omarchy Configs\n"
             printf "\-t      Install Terminal Configs\n"
         exit 2;;
     esac
@@ -44,6 +47,7 @@ ghostty_config()
     lnHomeConf "$GITPATH/.config/ghostty/themes" "$HOME/.config/ghostty/themes" "ansi-light"
     printf "Ghostty config has been installed.\n"
 }
+
 
 konsole_config()
 {
@@ -105,4 +109,17 @@ if [ "$terminalConfigs" = 1 ]; then
     micro_config
     sftp_config
 #    sudo_config
+fi
+
+omarchy_config()
+{
+    lnHomeConf "$GITPATH/omarchy/hypr" "$HOME/.config/hypr" "bindings.lua"
+    lnHomeConf "$GITPATH/omarchy/hypr" "$HOME/.config/hypr" "input.lua"
+    lnHomeConf "$GITPATH/omarchy/hypr" "$HOME/.config/hypr" "looknfeel.lua"
+    lnHomeConf "$GITPATH/omarchy/lock-designs" "$HOME/.config/omarchy/lock-designs" "Classic.qml"
+    printf "Omarchy configs have been installed.\n"
+}
+
+if [ "$omarchyConfigs" = 1 ]; then
+    omarchy_config
 fi
