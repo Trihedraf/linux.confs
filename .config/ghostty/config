@@ -36,3 +36,7 @@ shell-integration-features = "cursor, sudo, title, ssh-env, ssh-terminfo"
 
 keybind = "super+d=new_split:right"
 keybind = "super+s=new_split:down"
+keybind = "ctrl+shift+left=unbind"
+keybind = "ctrl+shift+right=unbind"
+keybind = "ctrl+alt+arrow_left=previous_tab"
+keybind = "ctrl+alt+arrow_right=next_tab"
