@@ -123,7 +123,7 @@ if [ "$guiInstall" = 1 ]; then
     flatpak \
     gamemode lib32-gamemode \
     gamescope \
-    giflib lib32-giflib \
+    giflib \
     gst-plugins-base-libs \
     gtk3 lib32-gtk3 \
     libgcrypt lib32-libgcrypt \
@@ -135,16 +135,16 @@ if [ "$guiInstall" = 1 ]; then
     libva lib32-libva \
     libxcomposite lib32-libxcomposite \
     libxinerama lib32-libxinerama \
-    libxslt lib32-libxslt \
+    libxslt \
     mesa lib32-mesa \
-    mpg123 lib32-mpg123 \
+    mpg123 \
     ocl-icd lib32-ocl-icd \
-    openal lib32-openal \
+    openal \
     opencl-icd-loader lib32-opencl-icd-loader \
     protontricks \
-    sdl2-compat lib32-sdl2-compat \
+    sdl2-compat \
     sdl3 lib32-sdl3 \
-    v4l-utils lib32-v4l-utils \
+    v4l-utils \
     vkd3d lib32-vkd3d \
     vulkan-icd-loader lib32-vulkan-icd-loader \
     vulkan-radeon lib32-vulkan-radeon \

@@ -10,7 +10,7 @@ if [ -d "$HOME/git/linux.confs" ]; then
     "$HOME/git/linux.confs/scripts/configFiles.sh" -gt || printf "app configurations failed"
     "$HOME/git/linux.confs/scripts/shellConf.sh" || printf "shell configuration failed"
     "$HOME/git/linux.confs/scripts/fontInstall.sh" || printf "font install failed"
-    sudo cp -v $HOME/git/linux.confs/omarchy/etc/pacman.conf /etc/pacman.conf || printf "pacman.conf failed to copy"
+    sudo cp -v "$HOME/git/linux.confs/omarchy/etc/pacman.conf" /etc/pacman.conf || printf "pacman.conf failed to copy"
 fi
 
 sudo pacman -Syy --noconfirm --needed \
@@ -59,7 +59,6 @@ alsa-plugins lib32-alsa-plugins \
 flatpak \
 gamemode lib32-gamemode \
 gamescope \
-lib32-giflib \
 lib32-gtk3 \
 lib32-libgcrypt \
 lib32-libgpg-error \
@@ -70,16 +69,11 @@ lib32-libpulse \
 lib32-libva \
 lib32-libxcomposite \
 lib32-libxinerama \
-lib32-libxslt \
 lib32-mesa \
-lib32-mpg123 \
 lib32-ocl-icd \
-lib32-openal \
 lib32-opencl-icd-loader \
 protontricks \
-lib32-sdl2-compat \
 lib32-sdl3 \
-lib32-v4l-utils \
 vkd3d lib32-vkd3d \
 lib32-vulkan-icd-loader \
 vulkan-radeon lib32-vulkan-radeon \
